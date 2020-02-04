@@ -9,6 +9,6 @@ def sumn(n):
 
 userinput = int(input("Enter number n: "))
 
-print("sum of 1-", userinput, "is: ", sumn(userinput))
+print("sum of 1 -",userinput, "is:", sumn(userinput))
 
 
