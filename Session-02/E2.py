@@ -1,15 +1,14 @@
 # S2 E2
 
 def fibon(n):
-    if n+1 < 0:
-        print("Incorrect input")
-    elif n+1 == 1:
-        return 0
-    elif n+1 == 2:
-        return 1
-    else:
-        return fibon(n-1) + fibon(n-2)
+    a = 0
+    b = 1
+    for i in range(n):
+        c = a+b
+        a = b
+        b = c
+    return a
 
 print(fibon(5))
 print(fibon(10))
-print(fibon(150))
+print(fibon(15))
