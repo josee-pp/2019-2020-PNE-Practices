@@ -10,6 +10,6 @@ def fibon(n):
     else:
         return fibon(n-1) + fibon(n-2)
 
-print(fibon(6))
-print(fibon(11))
-print(fibon(16))
+print(fibon(5))
+print(fibon(10))
+print(fibon(15))
