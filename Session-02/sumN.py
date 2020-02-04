@@ -8,7 +8,7 @@ for i in range(1,21):
 
 res100 = 0
 
-for i in range(1, 100):
+for i in range(1, 101):
     res100 += i
 
 print("sum of 1-20: ", res20)
