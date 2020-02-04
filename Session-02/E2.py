@@ -8,8 +8,7 @@ def fibon(n):
     elif n == 2:
         return 1
     else:
-        return Fibonacci(n - 1) + Fibonacci(n - 2)
-
+        return fibon(n-1) + fibon(n-2)
 
 print(fibon(5))
 print(fibon(10))
