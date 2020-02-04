@@ -1,12 +1,12 @@
-def fibonacci(n):
-    if n < 0:
-        print("Error")
-    elif n == 1:
-        return 0
-    elif n == 2:
-        return 1
-    else:
-        return fibonacci(n - 1) + fibonacci(n - 2)
+a = 0
+b = 1
 
-print(Fibonacci(9))
+while a < n:
+    print(a, end=" ")
+    a = b
+    b = a+b
+
+print(a,b)
+
+
 
