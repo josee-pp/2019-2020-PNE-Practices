@@ -19,4 +19,8 @@ def countbase(sequence):
 
 with open("dna.txt", "r") as f:
     data = f.read()
-    print(countbase(data))
+    print("Total number of bases", countbase(data)[0])
+    print("A: ", countbase(data)[1])
+    print("C: ", countbase(data)[2])
+    print("G: ", countbase(data)[3])
+    print("T: ", countbase(data)[4])
