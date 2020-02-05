@@ -17,5 +17,9 @@ def countbase(sequence):
     length = countA + countC + countG + countT
     return length, countA, countC, countG, countT
 
-print(countbase("CATGTAGACTAG"))
+print("Total number of bases", countbase("CATGTAGACTAG")[0])
+print("A: ", countbase("CATGTAGACTAG")[1])
+print("C: ", countbase("CATGTAGACTAG")[2])
+print("G: ", countbase("CATGTAGACTAG")[3])
+print("T: ", countbase("CATGTAGACTAG")[4])
 
