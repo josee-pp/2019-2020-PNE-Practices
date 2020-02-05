@@ -17,5 +17,5 @@ def countbase(sequence):
     length = countA + countC + countG + countT
     return length, countA, countC, countG, countT
 
-print(countbase("CATGTAGACTAG"))
-
+with open("dna.txt", "r") as f:
+    print(countbase(f))
