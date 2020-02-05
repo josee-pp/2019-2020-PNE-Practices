@@ -18,4 +18,5 @@ def countbase(sequence):
     return length, countA, countC, countG, countT
 
 with open("dna.txt", "r") as f:
-    print(countbase(f))
+    data = f.read()
+    print(countbase(data))
