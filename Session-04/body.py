@@ -9,4 +9,5 @@ lines = file_contents.split('\n')
 body = lines[1:]
 
 bodystr = bodystr.join(body)
+print(bodystr)
 
