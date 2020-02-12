@@ -7,5 +7,4 @@ BASES = ["A", "T", "C", "G"]
 
 for element in FILENAME:
     dnafile = FOLDER + element + ".txt"
-    BASESLIST = list(seq_count(dnafile))
-    print("Gene", element, ":", dict(zip(BASES, BASESLIST)))
+    print(seq_count(dnafile))
