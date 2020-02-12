@@ -5,5 +5,5 @@ FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-
 FILENAME = ["U5", "ADA", "FRAT1", "FXN", "U5"]
 
 for i in FILENAME:
-    FILENAME2 = FOLDER + i + ".txt"
-    print("Gene", i, "---> Length: ", seq_len(FILENAME2))
+    dnafile = FOLDER + i + ".txt"
+    print("Gene", i, "---> Length: ", seq_len(dnafile))
