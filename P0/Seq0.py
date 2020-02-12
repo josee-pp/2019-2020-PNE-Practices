@@ -62,6 +62,9 @@ def seq_count(seq):
     countlist.append(countG)
     for element in FILENAME:
         dnafile = FOLDER + element + ".txt"
+        for i in countlist:
+            basesdict = dict(zip(BASES, countlist))
+    return (basesdict)
 
 
 
