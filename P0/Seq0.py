@@ -19,4 +19,16 @@ def seq_len(seq):
     bodystr = bodystr.join(body).replace(" ", "")
     return (len(bodystr))
 
+def seq_count_base(seq, base):
+    count = 0
+    file_contents = Path(seq).read_text()
+    seq = ""
+    lines = file_contents.split('\n')
+    body = lines[1:]
+    seq = seq.join(body).replace(" ", "")
+    for i in seq:
+        if i == base:
+            count += 1
+    return (counter)
+
 
