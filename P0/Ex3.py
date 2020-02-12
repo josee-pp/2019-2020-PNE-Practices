@@ -6,4 +6,4 @@ FILENAME = ["U5", "ADA", "FRAT1", "FXN", "U5"]
 
 for i in FILENAME:
     FILENAME2 = FOLDER + i + ".txt"
-    print(seq_len(FILENAME2))
+    print("Gene", i, "---> Length: ", seq_len(FILENAME2))
