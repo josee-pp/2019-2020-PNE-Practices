@@ -17,4 +17,6 @@ def seq_len(seq):
     lines = file_contents.split('\n')
     body = lines[1:]
     bodystr = bodystr.join(body).replace(" ", "")
-    print(len(bodystr))
+    return (len(bodystr))
+
+
