@@ -9,4 +9,12 @@ def seq_read_fasta(filename):
     lines = file_contents.split('\n')
     body = lines[1:]
     bodystr = bodystr.join(body).replace(" ", "")
-    print(bodystr[0:20])
+    return (bodystr[0:20])
+
+def seq_len(seq):
+    file_contents = Path(seq).read_text()
+    bodystr = ""
+    lines = file_contents.split('\n')
+    body = lines[1:]
+    bodystr = bodystr.join(body).replace(" ", "")
+    print(len(bodystr))
