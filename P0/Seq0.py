@@ -32,6 +32,9 @@ def seq_count_base(seq, base):
     return (count)
 
 def seq_count(seq):
+    FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+    FILENAME = ["U5", "ADA", "FRAT1", "FXN", "U5"]
+    BASES = ["A", "T", "C", "G"]
     file_contents = Path(seq).read_text()
     seq = ""
     lines = file_contents.split('\n')
@@ -41,6 +44,7 @@ def seq_count(seq):
     countT = 0
     countC = 0
     countG = 0
+    countlist = []
     for i in seq:
         if i == "A":
             countA = countA + 1
@@ -52,7 +56,12 @@ def seq_count(seq):
             countG = countG + 1
         else:
             next
-    return countA, countT, countC, countG
+    countlist.append(countA)
+    countlist.append(countT)
+    countlist.append(countC)
+    countlist.append(countG)
+    for element in FILENAME:
+        dnafile = FOLDER + element + ".txt"
 
 
 
