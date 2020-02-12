@@ -29,6 +29,6 @@ def seq_count_base(seq, base):
     for i in seq:
         if i == base:
             count += 1
-    return (counter)
+    return (count)
 
 

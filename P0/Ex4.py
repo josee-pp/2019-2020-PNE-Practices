@@ -8,4 +8,4 @@ BASES = ["A", "C", "T", "G"]
 for element in FILENAME:
     dnafile = FOLDER + element + ".txt"
     for i in BASES:
-        print("Gene", element, "\n", i, seq_count_base(dnafile, i))
+        print("Gene", element, "\n", i, ":" seq_count_base(dnafile, i))
