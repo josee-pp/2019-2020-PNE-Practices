@@ -64,6 +64,27 @@ def seq_count(seq):
         basesdict = dict(zip(BASES, countlist))
     return (basesdict)
 
+def seq_reverse(filename):
+    bodystr = ""
+    file_contents = Path(filename).read_text()
+    lines = file_contents.split('\n')
+    body = lines[1:]
+    bodystr = bodystr.join(body).replace(" ", "")
+    first20 = bodystr[0:20]
+    first20reverb = first20[::-1]
+    return (first20, first20reverb)
 
-
-
+def seq_complement(seq):
+    comp = ""
+    for i in seq:
+        if i == "A":
+            comp = comp + "T"
+        elif i == "C":
+            comp = comp + "G"
+        elif i == "G":
+            comp = comp + "C"
+        elif i == "T":
+            comp = comp + "A"
+        else:
+            next
+    return comp
