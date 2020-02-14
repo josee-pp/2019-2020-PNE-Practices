@@ -7,5 +7,5 @@ FILENAME = "U5.txt"
 DNAFILE = FOLDER + FILENAME
 
 print("Gene U5: ")
-print("Frag: ", seq_read_fasta(DNAFILE)[0])
+print("Frag: ", seq_read_fasta(DNAFILE))
 print("Rev: ", seq_reverse(DNAFILE)[1])
