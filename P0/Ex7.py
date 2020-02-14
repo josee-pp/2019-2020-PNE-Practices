@@ -8,7 +8,6 @@ DNAFILE = FOLDER + FILENAME
 
 print(DNAFILE)
 
-print("DNA file: ", FILENAME)
-print("The first 20 bases are: ", seq_read_fasta(DNAFILE))
-
-
+print("Gene U5: ")
+print("Frag: ", seq_read_fasta(DNAFILE))
+print("Comp: ", seq_complement(seq_read_fasta(DNAFILE)))

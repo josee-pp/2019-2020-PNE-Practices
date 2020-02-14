@@ -74,3 +74,18 @@ def seq_reverse(filename):
     first20reverb = first20[::-1]
     return (first20, first20reverb)
 
+def seq_complement(seq):
+    comp = ""
+    for i in seq:
+        if i == "A":
+            comp = comp + "T"
+        elif i == "C":
+            comp = comp + "G"
+        elif i == "G":
+            comp = comp + "C"
+        elif i == "T":
+            comp = comp + "A"
+        else:
+            next
+    return comp
+
