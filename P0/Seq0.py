@@ -88,5 +88,3 @@ def seq_complement(seq):
         else:
             next
     return comp
-
-
