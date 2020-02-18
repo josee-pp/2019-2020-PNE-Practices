@@ -2,17 +2,22 @@ class Seq:
     """A class for representing sequence objects"""
     def __init__(self, strbases):
         self.strbases = strbases
-        for i in strbases:
-            if i == "A" or "C" or "G" or "T":
-                print("New sequence created!")
+        bases = []
+        for i in self.strbases:
+            if i == "A":
+                bases.append(i)
+            elif i == "C":
+                bases.append(i)
+            elif i == "G":
+                bases.append(i)
+            elif i == "T":
+                bases.append(i)
             else:
+                print("ERROR")
                 break
-
+        print("".join(bases))
     def __str__(self):
         return self.strbases
-
-    pass
-
 
 # --- Main program
 s1 = Seq("ACCTGC")
