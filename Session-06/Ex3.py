@@ -13,6 +13,7 @@ def generate_seqs(pattern, number):
     for i in range(number):
         whatever = pattern * (i+1)
         lst.append(whatever)
+        print("New sequence created!")
     return lst
 
 seq_list1 = generate_seqs("A", 3)
