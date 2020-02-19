@@ -8,14 +8,15 @@ class Seq:
         return len(self.strbases)
     pass
 
-seq_list = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
+def print_seq(seq_list):
+    for element in seq_list:
+        seq = seq_list[seq_list.index(element)]
+        print(f"Sequence: {seq_list.index(element)} (Length: {seq.len()}) {seq}")
 
 # --- Main program
-s1 = seq_list[0]
-s2 = seq_list[1]
-s3 = seq_list[2]
-print(f"Sequence 1: (Length: {s1.len()}) {s1}")
-print(f"Sequence 2: (Length: {s2.len()}) {s2}")
-print(f"Sequence 3: (Length: {s3.len()}) {s3}")
+
+seq_list = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
+
+print_seq(seq_list)
 
 
