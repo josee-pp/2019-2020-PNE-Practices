@@ -19,20 +19,19 @@ def generate_seqs(pattern, number):
         print("New sequence created!")
     return lst
 
-def print_seq(seq_list):
+def print_seq(seq_list, color):
     for element in seq_list:
         seq = seq_list[seq_list.index(element)]
-        print(f"Sequence: {seq_list.index(element)} (Length: {len(seq)}) {seq}")
+        termcolor.cprint(f"Sequence: {seq_list.index(element)} (Length: {len(seq)}) {seq}", color)
 
 
 seq_list1 = generate_seqs("A", 3)
 seq_list2 = generate_seqs("AC", 5)
 
-
-print(print_seq(seq_list1))
-#termcolor.cprint("List 1:", "blue")
-#termcolor.cprint(print_seq(seq_list1), "blue")
+print()
+termcolor.cprint("List 1:", "blue")
+print_seq(seq_list1, "blue")
 
 print()
-#termcolor.cprint("List 2:", "green")
-#termcolor.cprint(print_seq(seq_list2), "green")
+termcolor.cprint("List 2:", "green")
+print_seq(seq_list2, "green")
