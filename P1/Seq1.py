@@ -1,3 +1,5 @@
+from pathlib import Path
+
 class Seq:
     def __init__(self, strbases=None):
         self.strbases = strbases
@@ -103,4 +105,12 @@ class Seq:
                 else:
                     next
             return comp
+
+    def read_fasta(self, filename):
+        bodystr = ""
+        file_contents = Path(filename).read_text()
+        lines = file_contents.split('\n')
+        body = lines[1:]
+        bodystr = bodystr.join(body).replace(" ", "")
+        return (bodystr)
     pass
