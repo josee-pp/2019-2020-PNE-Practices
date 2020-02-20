@@ -1,7 +1,6 @@
 class Seq:
     """A class for representing sequence objects"""
     def __init__(self, strbases):
-
         bases = []
         for i in strbases:
             if i == "A":
