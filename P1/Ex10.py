@@ -8,7 +8,12 @@ BASES = ["A", "C", "T", "G"]
 
 for element in FILENAME:
     dnafile = FOLDER + element + ".txt"
-    s = Seq(dnafile)
+    bodystr = ""
+    file_contents = Path(dnafile).read_text()
+    lines = file_contents.split('\n')
+    body = lines[1:]
+    bodystr = bodystr.join(body).replace(" ", "")
+    s = Seq(bodystr)
     sorted_dict = sorted((s.count(BASES)).items(), key=operator.itemgetter(1))
     frequentb = sorted_dict[-1]
     print("Gene", element + ":", " Most frequent base: ", frequentb[0])
