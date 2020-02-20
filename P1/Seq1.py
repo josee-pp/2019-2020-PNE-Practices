@@ -39,4 +39,40 @@ class Seq:
                     count = count + 1
         return count
 
+    def count(self,base):
+        baselist = ["A", "C", "G", "T"]
+        countlist=[]
+        counterA = 0
+        counterC = 0
+        counterG = 0
+        counterT = 0
+        for i in self.strbases:
+            if self.strbases == "NULL" or self.strbases == "ERROR":
+                counterA = 0
+                counterC = 0
+                counterG = 0
+                counterT = 0
+                countlist.append(counterA)
+                countlist.append(counterT)
+                countlist.append(counterC)
+                countlist.append(counterG)
+                basedict = dict(zip(baselist, countlist))
+                return basedict
+
+            else:
+                for i in self.strbases:
+                    if i == "A":
+                        counterA += 1
+                    elif i == "C":
+                        counterC += 1
+                    elif i == "G":
+                        counterG += 1
+                    elif i == "T":
+                        counterT += 1
+                countlist.append(counterA)
+                countlist.append(counterT)
+                countlist.append(counterC)
+                countlist.append(counterG)
+                basedict = dict(zip(baselist, countlist))
+                return basedict
     pass
