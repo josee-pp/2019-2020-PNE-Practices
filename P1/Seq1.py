@@ -75,4 +75,12 @@ class Seq:
                 countlist.append(counterG)
                 basedict = dict(zip(baselist, countlist))
                 return basedict
+
+    def reverse(self):
+        if self.strbases == "NULL":
+            return "NULL"
+        elif self.strbases == "ERROR":
+            return "ERROR"
+        else:
+            return (self.strbases[::-1])
     pass
