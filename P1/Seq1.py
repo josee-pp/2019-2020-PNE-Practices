@@ -83,4 +83,24 @@ class Seq:
             return "ERROR"
         else:
             return (self.strbases[::-1])
+
+    def complement(self):
+        comp = ""
+        if self.strbases == "NULL":
+            return "NULL"
+        elif self.strbases == "ERROR":
+            return "ERROR"
+        else:
+            for i in self.strbases:
+                if i == "A":
+                    comp = comp + "T"
+                elif i == "C":
+                    comp = comp + "G"
+                elif i == "G":
+                    comp = comp + "C"
+                elif i == "T":
+                    comp = comp + "A"
+                else:
+                    next
+            return comp
     pass
