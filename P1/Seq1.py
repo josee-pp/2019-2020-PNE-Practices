@@ -1,12 +1,29 @@
 class Seq:
-    def __init__(self, strbases="NULL"):
+    def __init__(self, strbases=None):
         self.strbases = strbases
-        if strbases == "NULL":
+        baselist = ["A", "C", "G", "T"]
+        cancontinue = ""
+        if strbases == None:
             print("NULL Seq created!")
+            self.strbases = "NULL"
         else:
-            print("New sequence created!")
+            for element in strbases:
+                if element not in baselist:
+                    cancontinue = "False"
+                elif element in baselist:
+                    cancontinue = "True"
+            if cancontinue == "False":
+                print("INVALID Seq!")
+                self.strbases = "ERROR"
+            elif cancontinue == "True":
+                print("New sequence created!")
     def __str__(self):
         return self.strbases
     def len(self):
-        return len(self.strbases)
+        if self.strbases == "ERROR":
+            return "0"
+        elif self.strbases == "NULL":
+            return "0"
+        else:
+            return len(self.strbases)
     pass
