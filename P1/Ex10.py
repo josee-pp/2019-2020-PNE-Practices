@@ -2,18 +2,12 @@ import operator
 from Seq1 import Seq
 from pathlib import Path
 
-FOLDER = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
 FILENAME = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
-BASES = ["A", "C", "T", "G"]
+BASES = ["A", "C", "G", "T"]
 
 for element in FILENAME:
     dnafile = FOLDER + element + ".txt"
-    bodystr = ""
-    file_contents = Path(dnafile).read_text()
-    lines = file_contents.split('\n')
-    body = lines[1:]
-    bodystr = bodystr.join(body).replace(" ", "")
-    s = Seq(bodystr)
-    sorted_dict = sorted((s.count(BASES)).items(), key=operator.itemgetter(1))
-    frequentb = sorted_dict[-1]
-    print("Gene", element + ":", " Most frequent base: ", frequentb[0])
+    s = Seq()
+    s1 = Seq(s.read_fasta(dnafile))
+    print("Gene", element + ":", " Most frequent base: ", s1.processing_genes(BASES))

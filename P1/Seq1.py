@@ -55,9 +55,9 @@ class Seq:
                 counterG = 0
                 counterT = 0
                 countlist.append(counterA)
-                countlist.append(counterT)
                 countlist.append(counterC)
                 countlist.append(counterG)
+                countlist.append(counterT)
                 basedict = dict(zip(baselist, countlist))
                 return basedict
 
@@ -72,9 +72,9 @@ class Seq:
                     elif i == "T":
                         counterT += 1
                 countlist.append(counterA)
-                countlist.append(counterT)
                 countlist.append(counterC)
                 countlist.append(counterG)
+                countlist.append(counterT)
                 basedict = dict(zip(baselist, countlist))
                 return basedict
 
@@ -113,4 +113,9 @@ class Seq:
         body = lines[1:]
         bodystr = bodystr.join(body).replace(" ", "")
         return (bodystr)
+
+    def processing_genes(self, baselist):
+        dict_value = self.count(baselist)
+        max_value = max(dict_value, key=dict_value.get)
+        return max_value
     pass

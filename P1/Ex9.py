@@ -1,7 +1,7 @@
 from Seq1 import Seq
 from pathlib import Path
 
-FOLDER = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
 
 FILE = "U5.txt"
 FILENAME = FOLDER + FILE
