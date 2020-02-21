@@ -2,7 +2,7 @@ from Seq0 import *
 from pathlib import Path
 import operator
 
-FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+FOLDER = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
 FILENAME = ["U5", "ADA", "FRAT1", "FXN", "U5"]
 BASES = ["A", "C", "T", "G"]
 
