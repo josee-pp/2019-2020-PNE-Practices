@@ -1,0 +1,3 @@
+Machine         Interface       Date        Place                IP
+mobile          Wifi                                             10.0.31.92
+Lab computer    Wire                        home/Alcorcon Lab    212.128.253.171
