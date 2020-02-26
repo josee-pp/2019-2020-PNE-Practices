@@ -1,5 +1,4 @@
 from Client0 import Client
-import socket
 
 PRACTICE = 2
 EXERCISE = 1
