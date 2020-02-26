@@ -20,7 +20,7 @@ class Client:
     def debug_talk(self, msg):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.IP, self.PORT))
-        msg = colored(msg, "blue")
+        msg = colored(msg, "green")
         s.send(str.encode(msg))
         resp = s.recv(2048).decode("utf-8")
         response = colored(resp, "green")
