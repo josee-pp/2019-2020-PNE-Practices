@@ -2,7 +2,7 @@ import socket
 
 # SERVER IP, PORT
 PORT = 8080
-IP = "192.168.124.179"
+IP = "212.128.253.170"
 
 while True:
   # -- Ask the user for the message
@@ -12,6 +12,6 @@ while True:
   # -- Establish the connection to the Server
     s.connect((IP, PORT))
   # -- Send the user message
-    s.send(str.encode("HELLO FROM THE CLIENT!!!"))
+    s.send(str.encode(message))
   # -- Close the socket
     s.close()
