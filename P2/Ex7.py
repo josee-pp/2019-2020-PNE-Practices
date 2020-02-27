@@ -52,12 +52,18 @@ PORTLIST.append(PORT1)
 PORTLIST.append(PORT2)
 
 
-c = Client(IP, PORT)
+c1 = Client(IP, PORT1)
+c2 = Client(IP, PORT2)
 
 fragments = seq_divider(filename)[0]
 dnabody = seq_divider(filename)[1]
 
 print(f"Gene FRAT1: {dnabody}")
+
 for a in fragments:
-    print(f"To Server: {a}")
-    response = c.talk(a)
+    if (fragments.index(a) + 1) == 1 or 3 or 5 or 7 or 9:
+        print(f"Fragment {fragments.index(a) + 1}: {a}")
+        response = c1.talk(a)
+    else:
+        print(f"Fragment {fragments.index(a) + 1}: {a}")
+        response = c2.talk(a)
