@@ -7,6 +7,8 @@ def seq_divider(filename):
     lines = file_contents.split('\n')
     body = lines[1:]
     bodystr = bodystr.join(body).replace(" ", "")
+    fraglistodd = []
+    fraglisteven = []
     fraglist = []
     frag1 = bodystr[0:10]
     frag2 = bodystr[10:20]
@@ -18,6 +20,18 @@ def seq_divider(filename):
     frag8 = bodystr[70:80]
     frag9 = bodystr[80:90]
     frag10 = bodystr[90:100]
+    #ODD AND EVEN LISTS
+    fraglistodd.append(frag1)
+    fraglisteven.append(frag2)
+    fraglistodd.append(frag3)
+    fraglisteven.append(frag4)
+    fraglistodd.append(frag5)
+    fraglisteven.append(frag6)
+    fraglistodd.append(frag7)
+    fraglisteven.append(frag8)
+    fraglistodd.append(frag9)
+    fraglisteven.append(frag10)
+    # ALL FRAGMENTS LIST
     fraglist.append(frag1)
     fraglist.append(frag2)
     fraglist.append(frag3)
@@ -28,7 +42,7 @@ def seq_divider(filename):
     fraglist.append(frag8)
     fraglist.append(frag9)
     fraglist.append(frag10)
-    return fraglist, bodystr
+    return fraglist, fraglistodd, fraglisteven, bodystr
 
 folder = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
 dnafile = "FRAT1.txt"
@@ -55,15 +69,19 @@ PORTLIST.append(PORT2)
 c1 = Client(IP, PORT1)
 c2 = Client(IP, PORT2)
 
-fragments = seq_divider(filename)[0]
-dnabody = seq_divider(filename)[1]
+allfragments = seq_divider(filename)[0]
+oddlist = seq_divider(filename)[1]
+evenlist = seq_divider(filename)[2]
+dnabody = seq_divider(filename)[3]
 
 print(f"Gene FRAT1: {dnabody}")
 
-for a in fragments:
-    if (fragments.index(a) + 1) == 1 or 3 or 5 or 7 or 9:
-        print(f"Fragment {fragments.index(a) + 1}: {a}")
-        response = c1.talk(a)
-    else:
-        print(f"Fragment {fragments.index(a) + 1}: {a}")
-        response = c2.talk(a)
+for seq in allfragments:
+    print(f"Fragment {allfragments.index(seq) + 1}: {seq}")
+
+for seq in oddlist:
+    response = c1.debug_talk(f"Fragment {allfragments.index(seq) + 1}: {seq}")
+
+for seq in evenlist:
+    response = c2.debug_talk(f"Fragment {allfragments.index(seq) + 1}: {seq}")
+
