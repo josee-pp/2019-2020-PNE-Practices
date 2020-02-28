@@ -12,4 +12,4 @@ PORT = 8080
 c = Client(IP, PORT)
 print(c)
 
-#print(f"IP: {c.IP}, {c.PORT}")
+print(f"IP: {c.IP}, {c.PORT}")

@@ -1,5 +1,6 @@
 from pathlib import Path
 from Client0 import Client
+from Seq1 import Seq
 
 def seq_divider(filename):
     bodystr = ""
@@ -74,6 +75,18 @@ oddlist = seq_divider(filename)[1]
 evenlist = seq_divider(filename)[2]
 dnabody = seq_divider(filename)[3]
 
+clientlist = []
+clientlist.append(c1)
+clientlist.append(c2)
+
+msg = "Sending FRAT1 Gene to the server, in fragments of 10 bases..."
+
+for client in clientlist:
+    response = client.debug_talk(msg)
+    print(client)
+
+snull = Seq()
+
 print(f"Gene FRAT1: {dnabody}")
 
 for seq in allfragments:
@@ -84,4 +97,8 @@ for seq in oddlist:
 
 for seq in evenlist:
     response = c2.debug_talk(f"Fragment {allfragments.index(seq) + 1}: {seq}")
+
+
+
+
 
