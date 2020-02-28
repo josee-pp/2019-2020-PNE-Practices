@@ -97,8 +97,3 @@ for seq in oddlist:
 
 for seq in evenlist:
     response = c2.debug_talk(f"Fragment {allfragments.index(seq) + 1}: {seq}")
-
-
-
-
-
