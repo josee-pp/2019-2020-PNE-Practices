@@ -18,14 +18,14 @@ ls.listen()
 
 print("The server is configured!")
 
+clientslist = []
 count = 0
 while True:
     # -- Waits for a client to connect
     print("Waiting for Clients to connect")
-
     try:
         (cs, client_ip_port) = ls.accept()
-
+        clientslist.append(client_ip_port)
     # -- Server stopped manually
     except KeyboardInterrupt:
         print("Server stopped by the user")
@@ -60,3 +60,9 @@ while True:
 
         # -- Close the data socket
         cs.close()
+        if count == 5:
+            print("The following clients has connected to the server:")
+            for client in clientslist:
+                print(f"Client {clientslist.index(client)}: {client}")
+            break
+
