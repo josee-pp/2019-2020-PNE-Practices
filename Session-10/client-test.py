@@ -1,10 +1,6 @@
 from Client0 import Client
 from termcolor import colored
 
-PRACTICE = 2
-EXERCISE = 1
-
-print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
 IP = "212.128.253.171"
 PORT = 8080
