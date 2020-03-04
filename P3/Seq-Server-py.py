@@ -12,9 +12,6 @@ def GET(n):
     for seq in seqlist:
         return (f"{seqlist[n]}\n")
 
-# SEQUENCES LIST:
-
-
 
 # Configure the Server's IP and PORT
 PORT = 8080
@@ -73,9 +70,13 @@ while True:
             # -- Close the data socket
             cs.close()
 
-        elif msg.split(" ")[0] == f"GET":
+        elif msg.split(" ")[0] == "GET":
             number = int(msg.split(" ")[1])
             response = str(GET(number))
+            print(f"GET\n{response}")
             cs.send(response.encode())
             cs.close()
+
+        elif msg.split(" ")[0] == "INFO":
+            seq = msg.split(" ")[1]
 
