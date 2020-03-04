@@ -1,7 +1,20 @@
 import socket
-from Client0 import Client
 import termcolor
-from termcolor import colored
+from Seq1 import Seq
+
+# FUNCTIONS:
+
+def PING():
+    print("OK!")
+
+def GET(n):
+    seqlist = ["ATCGATCAGTCGATCG", "TAGCTACGATCAGACT", "CGTAGCTACGATAT", "GTACGATCTAGAGCT"]
+    for seq in seqlist:
+        return (f"{seqlist[n]}\n")
+
+# SEQUENCES LIST:
+
+
 
 # Configure the Server's IP and PORT
 PORT = 8080
@@ -52,12 +65,17 @@ while True:
         if msg == "PING":
             # -- Print the received message
             termcolor.cprint("PING command!", "yellow")
-
+            PING()
             # -- Send a response message to the client
             response = "OK!\n"
-
             # -- The message has to be encoded into bytes
             cs.send(response.encode())
-
             # -- Close the data socket
             cs.close()
+
+        elif msg.split(" ")[0] == f"GET":
+            number = int(msg.split(" ")[1])
+            response = str(GET(number))
+            cs.send(response.encode())
+            cs.close()
+
