@@ -7,8 +7,9 @@ from Seq1 import Seq
 def PING():
     print("OK!")
 
-seqlist = ["ATCGATCAGTCGATCG", "TAGCTACGATCAGACT", "CGTAGCTACGATAT", "GTACGATCTAGAGCT"]
 def GET(n):
+    seqlist = ["ATCGATCAGTCGATCG", "TAGCTACGATCAGACT", "CGTAGCTACGATAT", "GTACGATCTAGAGCT"]
+    print(f"GET 0: ")
     for seq in seqlist:
         if n == seqlist.index(seq):
             return seq
@@ -28,9 +29,6 @@ def INFO(seq):
         percentage = round((count/seqlen)*100, 2)
         percentlist.append(percentage)
     return (seq, seqlen, countlist, percentlist)
-
-
-
 
 
 # Configure the Server's IP and PORT

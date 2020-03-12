@@ -1,3 +1,5 @@
+from Seq1 import Seq
+
 seqlist = ["ATCGATCAGTCGATCG", "TAGCTACGATCAGACT", "CGTAGCTACGATAT", "GTACGATCTAGAGCT"]
 def GET(n):
     for seq in seqlist:
@@ -50,10 +52,33 @@ while True:
         break
 
     elif msg.split(" ")[0] == "INFO":
-        baseslist = ["A", "C", "G", "T"]
         seq = msg.split(" ")[1]
         seqlen = INFO(seq)[1]
         countlist = INFO(seq)[2]
         percentlist = INFO(seq)[3]
         print(f"Sequence: {seq}\nTotal length: {seqlen}\nA: {countlist[0]} ({percentlist[0]}%)\nC: {countlist[1]} ({percentlist[1]}%)\nG: {countlist[2]} ({percentlist[2]}%)\nT: {countlist[3]} ({percentlist[3]}%)\n")
         break
+
+    elif msg.split(" ")[0] == "COMP":
+        seq = msg.split(" ")[1]
+        s = Seq(seq)
+        comp = s.complement()
+        print(comp)
+        break
+
+    elif msg.split(" ")[0] == "REV":
+        seq = msg.split(" ")[1]
+        s = Seq(seq)
+        rev = s.reverse()
+        print(rev)
+        break
+
+    elif msg.split(" ")[0] == "GENE":
+        filename = msg.split(" ")[1]
+        FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+        dnafile = FOLDER + filename + ".txt"
+        s = Seq()
+        s1 = Seq(s.read_fasta(dnafile))
+        print(s1)
+        break
+
