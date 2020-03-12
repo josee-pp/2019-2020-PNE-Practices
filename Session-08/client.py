@@ -4,7 +4,7 @@ import socket
 # Write here the correct parameter for connecting to the
 # Teacher's server
 PORT = 8080
-IP = "192.168.124.179"
+IP = "127.0.0.1"
 
 
 # First, create the socket
@@ -16,7 +16,8 @@ s.connect((IP, PORT))
 
 # Send data. No strings can be send, only bytes
 # It necesary to encode the string into bytes
-s.send(str.encode("HELLO FROM THE CLIENT!!!"))
+usermsg = input()
+s.send(str.encode(usermsg))
 
 # Closing the socket
 s.close()

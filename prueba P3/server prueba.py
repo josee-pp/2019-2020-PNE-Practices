@@ -35,7 +35,7 @@ def INFO(seq):
 
 # Configure the Server's IP and PORT
 PORT = 8080
-IP = "127.0.0.1"
+IP = "192.168.1.48"
 
 # -- Step 1: create the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -70,7 +70,7 @@ while True:
 
     # -- Execute this part if there are no errors
     else:
-
+        print("A client has connected to the server!")
         # -- Read the message from the client
         # -- The received message is in raw bytes
         msg_raw = cs.recv(2048)
