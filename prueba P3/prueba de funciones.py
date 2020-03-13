@@ -75,8 +75,11 @@ while True:
 
     elif msg.split(" ")[0] == "GENE":
         filename = msg.split(" ")[1]
+        doclist = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
         FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
-        dnafile = FOLDER + filename + ".txt"
+        for element in doclist:
+            if filename == element:
+                dnafile = FOLDER + filename + ".txt"
         s = Seq()
         s1 = Seq(s.read_fasta(dnafile))
         print(s1)
