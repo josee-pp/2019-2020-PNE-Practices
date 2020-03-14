@@ -88,6 +88,7 @@ print("SEQ server configured!")
 
 
 client_ip_list = []
+nc = 0
 
 while True:
 
@@ -110,7 +111,6 @@ while True:
     # -- Execute this part if there are no errors
 
     else:
-
         nc += 1
         client_ip_list.append(f'Client{nc}:{client_ip_port}')
         print("CONNECTION: {} From the IP: {}".format(nc, client_ip_port))
