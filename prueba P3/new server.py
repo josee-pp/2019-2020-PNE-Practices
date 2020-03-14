@@ -129,21 +129,26 @@ while True:
             ping()
             cs.close()
 
+        # The server recognises the GET command in the message and the number of the sequence:
         elif msg.split(" ")[0] == "GET":
             number = int(msg.split(" ")[1])
             response = f"GET {number}\n{str(get(number))}"
             cs.send(response.encode())
             cs.close()
 
+        # The server recognises the INFO command in the message and the sequence:
         elif msg.split(" ")[0] == "INFO":
             seq = msg.split(" ")[1]
+            #We extract all the elements of the tuple given by the info() function and then...
             seqlen = info(seq)[1]
             countlist = info(seq)[2]
             percentlist = info(seq)[3]
+            #We obtain the info of the sequence:
             response = f"Sequence: {seq}\nTotal length: {seqlen}\nA: {countlist[0]} ({percentlist[0]}%)\nC: {countlist[1]} ({percentlist[1]}%)\nG: {countlist[2]} ({percentlist[2]}%)\nT: {countlist[3]} ({percentlist[3]}%)\n"
             cs.send(response.encode())
             cs.close()
 
+        # The server recognises the COMP command in the message and the sequence:
         elif msg.split(" ")[0] == "COMP":
             seq = msg.split(" ")[1]
             s = Seq(seq)
@@ -152,6 +157,7 @@ while True:
             cs.send(response.encode())
             cs.close()
 
+        # The server recognises the COMP command in the message and the sequence:
         elif msg.split(" ")[0] == "REV":
             seq = msg.split(" ")[1]
             s = Seq(seq)
@@ -160,14 +166,18 @@ while True:
             cs.send(response.encode())
             cs.close()
 
+        # The server recognises the GENE command in the message and the name of the gene (the filename):
         elif msg.split(" ")[0] == "GENE":
             filename = msg.split(" ")[1]
             doclist = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
             FOLDER = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+            # We check if the given message is in the list of gene documents:
             for element in doclist:
                 if filename == element:
+                    # We create the entire filename:
                     dnafile = FOLDER + filename + ".txt"
                     s = Seq()
+                    # We obtain the body of the document as a string:
                     s1 = Seq(s.read_fasta(dnafile))
             response = f"{msg}\n{s1}"
             cs.send(response.encode())
