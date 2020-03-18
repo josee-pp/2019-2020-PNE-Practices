@@ -55,7 +55,6 @@ def process_client(s):
     else:
         file = "\Error.html"
 
-
     body = read_fasta(folder + file)
 
     # -- Status line: We respond that everything is ok (200 code)
