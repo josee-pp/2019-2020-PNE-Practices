@@ -43,8 +43,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Get the order asked by the user
         order = arguments[0]
 
-        # -- Content type header
-        # -- Both, the error and the main page are in HTML
+        # Content type header
+        # Both, the error and the main page are in HTML
 
         if order == "/":
             contents = Path('form-4.html').read_text()
@@ -68,8 +68,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # Exercise 2: GET service. Returns the sequence that the user asked for:
         elif order == "/get":
+
             # We obtain the sequence number by separating the number of the path /get?n=(number):
             seq_number = (arguments[1].split("="))[1]
+
             # seq_number is the number that the user asked for.
             # Now we use this number to extract the sequence form the list:
             sequence = SEQ_GET[int(seq_number)]
@@ -90,11 +92,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # Exercise 3: GENE service. Returns the gene asked by the user:
         elif order == "/gene":
+
             # We obtain the gene by separating the number of the path /get?name=(gene):
             gene_name = (arguments[1].split("="))[1]
+
             # Now we complete the entire filename:
             folder = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
             filename = folder + gene_name + ".txt"
+
             # We use the Seq Class to extract the body of the file:
             s = Seq()
             s1 = Seq(s.read_fasta(filename))
@@ -127,6 +132,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 baselist = ["A", "C", "G", "T"]
                 countlist = []
                 perclist = []
+                # We perform the operation for each base in the baselist, and we add each result on a list.
                 for base in baselist:
                     count = s.count_base(base)
                     countlist.append(count)
