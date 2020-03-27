@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import termcolor
 from pathlib import Path
+from Seq1 import Seq
 
 # Define the Server's port
 PORT = 8080
@@ -39,17 +40,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Read the arguments
         arguments = path.split('?')
 
-        # Get the verb. It is the first argument
-        verb = arguments[0]
+        # Get the order asked by the user
+        order = arguments[0]
 
         # -- Content type header
         # -- Both, the error and the main page are in HTML
 
-        if verb == "/":
-            contents = Path('form-2.html').read_text()
+        if order == "/":
+            contents = Path('form-3.html').read_text()
 
         # Exercise 1: PING service. Says that the server is alive.
-        elif verb == "/ping":
+        elif order == "/ping":
             contents = f"""
                                     <!DOCTYPE html>
                                     <html lang = "en">
@@ -66,10 +67,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     """
 
         # Exercise 2: Returns the sequence that the user asked for:
-        elif verb == "/get":
+        elif order == "/get":
             # We obtain the sequence number by separating the number of the path /get?n=(number):
             seq_number = (arguments[1].split("="))[1]
-            sequence = SEQ_GET[seq_number]
+            # seq_number is the number that the user asked for.
+            # Now we use this number to extract the sequence form the list:
+            sequence = SEQ_GET[int(seq_number)]
             contents = f"""
                                     <!DOCTYPE html>
                                     <html lang = "en">
@@ -85,6 +88,30 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     </html>
                                     """
 
+        # Exercise 3: Returns the gene asked by the user:
+        elif order == "/gene":
+            # We obtain the gene by separating the number of the path /get?name=(gene):
+            gene_name = (arguments[1].split("="))[1]
+            # Now we complete the entire filename:
+            folder = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+            filename = folder + gene_name + ".txt"
+            # We use the Seq Class to extract the body of the file:
+            s = Seq()
+            s1 = Seq(s.read_fasta(filename))
+            contents = f"""
+                                        <!DOCTYPE html>
+                                        <html lang = "en">
+                                        <head>
+                                        <meta charset = "utf-8" >
+                                            <title>GENE</title >
+                                        </head >
+                                        <body>
+                                        <h1>Gene: {gene_name}:</h1>
+                                        <p>{s1}</p>
+                                        <a href="/">Main page</a>
+                                        </body>
+                                        </html>
+                                        """
 
         else:
             contents = Path('Error.html').read_text()
