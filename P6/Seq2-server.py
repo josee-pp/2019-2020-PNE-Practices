@@ -10,6 +10,14 @@ PORT = 8080
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
+# Define the list of sequences for the EX-02:
+SEQ_GET = [
+    "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA",
+    "AAAAACATTAATCTGTGGCCTTTCTTTGCCATTTCCAACTCTGCCACCTCCATCGAACGA",
+    "CAAGGTCCCCTTCTTCCTTTCCATTCCCGTCAGCTTCATTTCCCTAATCTCCGTACAAAT",
+    "CCCTAGCCTGACTCCCTTTCCTTTCCATCCTCACCAGACGCCCGCATGCCGGACCTCAAA",
+    "AGCGCAAACGCTAAAAACCGGTTGAGTTGACGCACGGAGAGAAGGGGTGTGTGGGTGGGT",
+]
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
@@ -37,24 +45,46 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # -- Content type header
         # -- Both, the error and the main page are in HTML
 
-        # Exercise 1: PING service. Says that the server is alive.
         if verb == "/":
-            contents = Path('form-1.html').read_text()
+            contents = Path('form-2.html').read_text()
+
+        # Exercise 1: PING service. Says that the server is alive.
         elif verb == "/ping":
             contents = f"""
                                     <!DOCTYPE html>
                                     <html lang = "en">
                                     <head>
                                     <meta charset = "utf-8" >
-                                        <title> RESULT </title >
+                                        <title>PING</title >
                                     </head >
                                     <body>
-                                    <h1> Received message: </h1>
-                                    <p>{msg}</p>
+                                    <h1>PING OK!</h1>
+                                    <p>The SEQ2 server in running...</p>
                                     <a href="/">Main page</a>
                                     </body>
                                     </html>
                                     """
+
+        # Exercise 2: Returns the sequence that the user asked for:
+        elif verb == "/get":
+            # We obtain the sequence number by separating the number of the path /get?n=(number):
+            seq_number = (arguments[1].split("="))[1]
+            sequence = SEQ_GET[seq_number]
+            contents = f"""
+                                    <!DOCTYPE html>
+                                    <html lang = "en">
+                                    <head>
+                                    <meta charset = "utf-8" >
+                                        <title>GET</title >
+                                    </head >
+                                    <body>
+                                    <h1>Sequence number {seq_number}:</h1>
+                                    <p>{sequence}</p>
+                                    <a href="/">Main page</a>
+                                    </body>
+                                    </html>
+                                    """
+
 
         else:
             contents = Path('Error.html').read_text()
