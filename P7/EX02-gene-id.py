@@ -1,33 +1,17 @@
-import http.client
+from termcolor import colored
 
-SERVER = "rest.ensembl.org"
-ENDPOINT = "/sequence/id"
-PARAMS = "/ENSG00000157764?content-type=text/plain"
-URL = SERVER + ENDPOINT + PARAMS
+gene_dict = {
+    "FRAT1": "ENSG00000165879",
+    "ADA": "ENSG00000196839",
+    "FXN": "ENSG00000165060",
+    "RNU6_269P": "ENSG00000212379",
+    "MIR633": "ENSG00000207552",
+    "TTTY4C": "ENSG00000228296",
+    "RBMY2YP": "ENSG00000227633",
+    "FGFR3": "ENSG00000068078",
+    "KDR": "ENSG00000128052",
+    "ANK2": "ENSG00000145362",
+}
 
-print()
-print(f"Server: {SERVER}")
-print(f"URL: {URL}")
-
-# Connect with the server
-conn = http.client.HTTPConnection(SERVER)
-
-# -- Send the request message, using the GET method. We are
-# -- requesting the main page (/)
-try:
-    conn.request("GET", "/sequence/id/ENSG00000157764?content-type=text/plain")
-except ConnectionRefusedError:
-    print("ERROR! Cannot connect to the Server")
-    exit()
-
-# -- Read the response message from the server
-r1 = conn.getresponse()
-
-# -- Print the status line
-print(f"Response received!: {r1.status} {r1.reason}\n")
-
-# -- Read the response's body
-data1 = r1.read().decode("utf-8")
-
-# -- Print the data
-print(data1)
+for k,v in gene_dict.items():
+    print(f"{colored(k,'green')}: ---> {v}")
