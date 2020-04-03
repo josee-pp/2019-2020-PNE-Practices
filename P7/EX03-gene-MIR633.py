@@ -31,13 +31,13 @@ print(f"Response received!: {r1.status} {r1.reason}\n")
 data1 = r1.read().decode("utf-8")
 
 # -- We extract the description and the sequence:
-lst = data1.split(' ')
-data = lst[1]
-descrip = data.split()[0]
-seq = data.split()[1]
+
+lst1 = data1.split()
+descrip = (lst1[1:])[0]
+lst2 = (lst1[1:])[1:]
+seq = (' '.join(map(str, lst2))).replace(' ', '')
 
 # -- Print the info:
-
 print(f"{colored('Gene', 'green')}: MIR633")
 print(f"{colored('Description', 'green')}: {descrip}")
 print(f"{colored('Bases', 'green')}: {seq}")
