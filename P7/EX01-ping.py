@@ -1,19 +1,21 @@
-# -- Example of a client that uses the HTTP.client library
-# -- for requesting the main page from the server
 import http.client
 
-PORT = 8080
-SERVER = 'localhost'
+SERVER = "rest.ensembl.org"
+ENDPOINT = "/info/ping"
+PARAMS = "?content-type=application/json"
+URL = SERVER + ENDPOINT + PARAMS
 
-print(f"\nConnecting to server: {SERVER}:{PORT}\n")
+print()
+print(f"Server: {SERVER}")
+print(f"URL: {URL}")
 
 # Connect with the server
-conn = http.client.HTTPConnection(SERVER, PORT)
+conn = http.client.HTTPConnection(SERVER)
 
 # -- Send the request message, using the GET method. We are
 # -- requesting the main page (/)
 try:
-    conn.request("GET", "/")
+    conn.request("GET", "/info/ping")
 except ConnectionRefusedError:
     print("ERROR! Cannot connect to the Server")
     exit()
@@ -27,5 +29,6 @@ print(f"Response received!: {r1.status} {r1.reason}\n")
 # -- Read the response's body
 data1 = r1.read().decode("utf-8")
 
-# -- Print the received data
-print(f"CONTENT: {data1}")
+# -- Check if ping=1, and then confirm is the database is running or not
+if "ping: 1" in data1:
+    print(f"PING OK! The database is running!")
