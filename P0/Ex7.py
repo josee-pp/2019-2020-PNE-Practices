@@ -8,6 +8,8 @@ DNAFILE = FOLDER + FILENAME
 
 print(DNAFILE)
 
+# We calculate its first 20 bases and its complement sequence:
+
 print("Gene U5: ")
 print("Frag: ", seq_read_fasta(DNAFILE))
 print("Comp: ", seq_complement(seq_read_fasta(DNAFILE)))
