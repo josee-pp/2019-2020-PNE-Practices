@@ -8,5 +8,5 @@ FILENAME = ["U5", "ADA", "FRAT1", "FXN", "U5"]
 
 for i in FILENAME:
     dnafile = FOLDER + i + ".txt"
-    # - - The seq_len function Calculate the total number of bases in the sequence:
+    # - - The seq_len function calculates the total number of bases in the sequence:
     print("Gene", i, "---> Length: ", seq_len(dnafile))
