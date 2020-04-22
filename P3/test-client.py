@@ -1,14 +1,15 @@
-from pathlib import Path
 from Client0 import Client
-from Seq1 import Seq
 
+# -- Parameters of the server to talk to
 PORT = 8080
 IP = "192.168.1.48"
 
+# -- Create a client object
 c = Client(IP, PORT)
 
 print(f"Connection to SERVER at {c.IP}, PORT: {c.PORT}")
 
+# -- The program will end only if the user inputs "EXIT":
 while True:
 
     msg = input("Enter message: ")

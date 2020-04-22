@@ -2,7 +2,7 @@ import socket
 from termcolor import colored
 from Seq1 import Seq
 
-# ----------- Functions:
+# -- Functions:
 
 def ping():
     response = "OK!\n"
@@ -64,7 +64,7 @@ def info(seq):
 
 
 
-# ---------- SERVER:
+# -- SERVER:
 
 
 
