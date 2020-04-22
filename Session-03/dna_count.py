@@ -3,6 +3,8 @@ def countbase(sequence):
     countC = 0
     countG = 0
     countT = 0
+
+    # -- If the element of the sequence matches with a base, the count of that base increases.
     for i in sequence:
         if i == "A":
             countA = countA + 1
@@ -14,6 +16,8 @@ def countbase(sequence):
             countT = countT + 1
         else:
             next
+
+    # -- The length will be the sum of the counts.
     length = countA + countC + countG + countT
     return length, countA, countC, countG, countT
 
