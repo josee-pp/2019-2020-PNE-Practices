@@ -96,7 +96,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             gene_name = (arguments[1].split("="))[1]
 
             # Now we complete the entire filename:
-            folder = "C:/Users/José/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
+            folder = "C:/Users/Diana/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
             filename = folder + gene_name + ".txt"
 
             # We use the Seq Class to extract the body of the file:
