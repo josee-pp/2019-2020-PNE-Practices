@@ -6,6 +6,7 @@ FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-
 FILENAME = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
 BASES = ["A", "C", "G", "T"]
 
+# - - For each gene (element of FILENAME) we calculate its data:
 for element in FILENAME:
     dnafile = FOLDER + element + ".txt"
     s = Seq()

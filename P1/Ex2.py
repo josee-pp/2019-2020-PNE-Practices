@@ -1,6 +1,9 @@
 from Seq1 import Seq
 
+# Create Null sequence:
 snull = Seq()
+
+# Create valid sequence:
 svalid = Seq("TATAC")
 
 seqlist = [snull, svalid]

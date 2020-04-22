@@ -4,6 +4,8 @@ from pathlib import Path
 FOLDER = "/home/alumnos/joseepp/PycharmProjects/2019-2020-PNE-Practices/Session-04/"
 
 FILE = "U5.txt"
+
+# - - We create the entire filename path:
 FILENAME = FOLDER + FILE
 baselist = ["A", "C", "G", "T"]
 
