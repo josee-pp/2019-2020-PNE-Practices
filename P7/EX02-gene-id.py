@@ -13,5 +13,6 @@ gene_dict = {
     "ANK2": "ENSG00000145362",
 }
 
+# -- For each element of the dictionary, we print its key with its corresponding value:
 for k,v in gene_dict.items():
     print(f"{colored(k,'green')}: ---> {v}")
