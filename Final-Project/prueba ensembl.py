@@ -4,6 +4,8 @@ import termcolor
 from pathlib import Path
 from Seq1 import Seq
 import json
+import itertools
+
 null = " "
 # Define the Server's port
 PORT = 8080
@@ -55,7 +57,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = Path('main-page.html').read_text()
 
 
-        elif action == "/listSpecies":
+        elif "/listSpecies" in action:
+
+            limit = arguments[1]
 
             ENDPOINT = "info/species"
             URL = SERVER + ENDPOINT + PARAMS
@@ -64,37 +68,101 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             print(f"Server: {SERVER}")
             print(f"URL: {URL}")
 
-            # Connect with the server
-            conn = http.client.HTTPConnection(SERVER)
-
-            # -- Send the request message, using the GET method. We are
-            # -- requesting the main page (/)
             try:
-                conn.request("GET", ENDPOINT + PARAMS)
-            except ConnectionRefusedError:
-                print("ERROR! Cannot connect to the Server")
-                exit()
 
-            # -- Read the response message from the server
-            response = conn.getresponse()
+                # Connect with the server
+                conn = http.client.HTTPConnection(SERVER)
 
-            # -- Print the status line
-            print(f"Response received!: {response.status} {response.reason}\n")
+                # -- Send the request message, using the GET method. We are
+                # -- requesting the main page (/)
+                try:
+                    conn.request("GET", ENDPOINT + PARAMS)
+                except ConnectionRefusedError:
+                    print("ERROR! Cannot connect to the Server")
+                    exit()
 
-            # -- Read the response's body:
-            body = response.read().decode("utf-8")
-            body = json.loads(body)
+                # -- Read the response message from the server
+                response = conn.getresponse()
+
+                # -- Print the status line
+                print(f"Response received!: {response.status} {response.reason}\n")
+
+                # -- Read the response's body:
+                body = response.read().decode("utf-8")
+                all_species_dict = json.loads(body)
+                all_species_list = []
+                for k, v in all_species_dict.items():
+                    if k == "species":
+                        for element in v:
+                            for k1, v1 in element.items():
+                                if k1 == "display_name":
+                                    species = v1
+                                    all_species_list.append(species)
+                # all_species = "\n".join(all_species_list)
+
+                contents = f"""
+                            <!DOCTYPE html>
+                            <html lang = "en">
+                            <head>
+                            <meta charset = "utf-8" >
+                                <title>List of species</title >
+                            </head >
+                            <body>
+                            <h1>All species: Total number: {len(all_species_list)}</h1>
+                            """
+
+                limit_action = limit.split("=")[0]
+                limit_value = limit.split("=")[1]
+
+                if limit_action == "limit":
+                    if limit_value != "":
+                        contents += f"""<p>The number of species you selected are: {limit_value} </p>"""
+                        if int(limit_value) > len(all_species_list) or int(limit_value) == 0 or int(limit_value) < 0:
+                            contents = f"""<!DOCTYPE html>
+                                                    <html lang = "en">
+                                                <head>
+                                                    <meta charset = "utf-8" >
+                                                    <title>ERROR</title >
+                                                </head>
+                                                <body>
+                                                <p>The limit you have introduced is out of range. Please, introduce a valid limit value</p>
+                                                <a href="/">Main page</a></body></html>"""
+                        else:
+                            limit_species_list = all_species_list[:(int(limit_value))]
+                            contents += f"""<p>The species are: </p>"""
+                            for species in limit_species_list:
+                                contents += f"""<p> - {species} </p>"""
+
+                        contents += f"""<a href="/">Main page</a></body></html>"""
 
 
-        else:
-            contents = Path('Error.html').read_text()
+                    else:
+                        contents += f"""<p>The number of species you selected is null, so all the species are displayed. </p>
+                                    <p>The species are: </p>"""
+                        for species in all_species_list:
+                            contents += f"""<p> - {species} </p>"""
+                        contents += f"""<a href="/">Main page</a></body></html>"""
+
+                else:
+                    contents = Path('Error.html').read_text()
+
+            except ValueError:
+                contents = f"""<!DOCTYPE html>
+                            <html lang = "en">
+                            <head>
+                             <meta charset = "utf-8" >
+                             <title>ERROR</title >
+                            </head>
+                            <body>
+                            <p>ERROR INVALID VALUE. Introduce an integer value for limit</p>
+                            <a href="/">Main page</a></body></html>"""
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html')
-        self.send_header('Content-Length', len(str.encode(contents)))
+        self.send_header('Content-Length', str.encode(contents))
 
         # The header is finished
         self.end_headers()
@@ -121,5 +189,5 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("")
-        print("Stoped by the user")
+        print("Stopped by the user")
         httpd.server_close()
