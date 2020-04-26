@@ -4,7 +4,7 @@ import termcolor
 from pathlib import Path
 from Seq1 import Seq
 import json
-
+null = " "
 # Define the Server's port
 PORT = 8080
 
@@ -30,34 +30,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         in the HTTP protocol request"""
 
         SERVER = "rest.ensembl.org"
-        ENDPOINT = "info/species"
         PARAMS = "?content-type=application/json"
-        URL = SERVER + ENDPOINT + PARAMS
 
-        print()
-        print(f"Server: {SERVER}")
-        print(f"URL: {URL}")
-
-        # Connect with the server
-        conn = http.client.HTTPConnection(SERVER)
-
-        # -- Send the request message, using the GET method. We are
-        # -- requesting the main page (/)
-        try:
-            conn.request("GET", ENDPOINT + PARAMS)
-        except ConnectionRefusedError:
-            print("ERROR! Cannot connect to the Server")
-            exit()
-
-        # -- Read the response message from the server
-        r1 = conn.getresponse()
-
-        # -- Print the status line
-        print(f"Response received!: {r1.status} {r1.reason}\n")
-
-        # -- Read the response's body
-        all_species_dict = r1.read().decode("utf-8")
-        print(all_species_dict)
 
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
@@ -79,6 +53,38 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         if action == "/":
             contents = Path('main-page.html').read_text()
+
+
+        elif action == "/listSpecies":
+
+            ENDPOINT = "info/species"
+            URL = SERVER + ENDPOINT + PARAMS
+
+            print()
+            print(f"Server: {SERVER}")
+            print(f"URL: {URL}")
+
+            # Connect with the server
+            conn = http.client.HTTPConnection(SERVER)
+
+            # -- Send the request message, using the GET method. We are
+            # -- requesting the main page (/)
+            try:
+                conn.request("GET", ENDPOINT + PARAMS)
+            except ConnectionRefusedError:
+                print("ERROR! Cannot connect to the Server")
+                exit()
+
+            # -- Read the response message from the server
+            response = conn.getresponse()
+
+            # -- Print the status line
+            print(f"Response received!: {response.status} {response.reason}\n")
+
+            # -- Read the response's body:
+            body = response.read().decode("utf-8")
+            body = json.loads(body)
+
 
         else:
             contents = Path('Error.html').read_text()
