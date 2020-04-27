@@ -62,6 +62,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             if action == "/":
                 contents = Path('main-page.html').read_text()
 
+            # - - - BASIC LEVEL - - -
+
             # List Species: List the names of all the species available in the database. The limit parameter (optional)
             # indicates the maximum number of species to show. If it is not specified, all the species will be listed:
 
@@ -383,8 +385,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>ERROR INVALID VALUE</p>
                                 <a href="/">Main page</a></body></html>"""
 
+            # - - - MEDIUM LEVEL - - -
 
+            # geneSeq: Return the sequence of a given human gene
             elif "/geneSeq" in action:
+
                 contents = f"""<!DOCTYPE html>
                                 <html lang = "en">
                                 <head>
@@ -395,8 +400,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
+
+                # We extract the gene name from the arguments:
                 gene_name = get_value.split("=")[1]
 
+                # We define our first endpoint to obtain the stable ID of the gene. This endpoint receives the species
+                # (in this case, human) and returns info about that gene, in which we can find the stable ID:
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
 
                 try:
@@ -420,10 +429,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body1 = response1.read().decode("utf-8")
+
+                    # -- We convert the string to a dictionary:
                     body1 = json.loads(body1)
+
+                    # -- The first element of body1 has the stable ID inside:
                     dct = body1[0]
+
+                    # -- We extract it:
                     stable_id = dct["id"]
 
+                    # -- We define our second endpoint. This one takes a stable ID and returns the complete sequence
+                    # -- of that gene.
                     endpoint2 = f"sequence/id/{stable_id}"
 
                     # Connect with the server
@@ -445,12 +462,18 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body2 = response2.read().decode("utf-8")
+
+                    # -- We convert the string to a dictionary:
                     body2 = json.loads(body2)
+
+                    # -- We extract the full sequence:
                     seq = body2["seq"]
 
+                    # -- The gene given by the user is correct:
                     if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<p> The sequence of {gene_name} is: {seq} </p>"""
 
+                    # -- The gene given is incorrect, does not exist or is not available in ensembl:
                     elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
@@ -464,6 +487,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
+                    # -- The user entered a blank space:
                     elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
@@ -480,6 +504,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>ERROR INVALID VALUE</p>
                                 <a href="/">Main page</a></body></html>"""
 
+            # geneInfo: Return information about a human gene: start, end, length, ID and chromose.
             elif "/geneInfo" in action:
 
                 contents = f"""<!DOCTYPE html>
@@ -492,8 +517,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
+
+                # We obtain the name of the gene from the arguments:
                 gene_name = get_value.split("=")[1]
 
+                # And now we can define our first endpoint. Is the same as the previous function: we will obtain the
+                # stable ID:
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
 
                 try:
@@ -517,10 +546,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body1 = response1.read().decode("utf-8")
+
+                    # -- We convert the string to a dictionary:
                     body1 = json.loads(body1)
+
+                    # -- The first element of the dictionary has the stable ID
                     dct = body1[0]
                     stable_id = dct["id"]
 
+                    # -- This endpoint give us the requested info as a dictionary:
                     endpoint2 = f"lookup/id/{stable_id}"
 
                     # Connect with the server
@@ -542,8 +576,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body2 = response2.read().decode("utf-8")
+
+                    # -- We convert the string into a dictionary:
                     body2 = json.loads(body2)
 
+                    # -- We extract the info (values) by the name of the keys:
                     start = body2["start"]
                     end = body2["end"]
 
@@ -553,6 +590,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     id = body2["id"]
                     chromose = body2["seq_region_name"]
 
+
+                    # The info that the user has entered is correct:
                     if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<h1> {gene_name}: </h1>
                                     <p>Start: {start}</p>
@@ -562,6 +601,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     <p>Chromose: {chromose}</p>
                                     """
 
+                    # The gene name is incorrect, does not exist or is not available in ensembl:
                     elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
@@ -575,6 +615,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
+                    # The user entered a blank space:
                     elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
@@ -591,6 +632,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>ERROR INVALID VALUE</p>
                                 <a href="/">Main page</a></body></html>"""
 
+            # geneCalc: Performs some calculations on the given human gene and returns the total length and the
+            # percentage of all its bases:
             elif "/geneCalc" in action:
 
                 contents = f"""<!DOCTYPE html>
@@ -603,8 +646,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
+
+                # We obtain the gene name:
                 gene_name = get_value.split("=")[1]
 
+                # We obtain the stable ID:
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
 
                 try:
@@ -628,10 +674,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body1 = response1.read().decode("utf-8")
+
+                    # -- We convert the string into a dictionary:
                     body1 = json.loads(body1)
+
                     dct = body1[0]
                     stable_id = dct["id"]
 
+                    # We obtain the entire sequence:
                     endpoint2 = f"sequence/id/{stable_id}"
 
                     # Connect with the server
@@ -656,6 +706,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     body2 = json.loads(body2)
                     seq = body2["seq"]
 
+                    # We use the Seq class to perform operations:
                     s = Seq(seq)
 
                     length = s.len()
@@ -665,6 +716,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     perclist = []
 
                     # We perform the operation for each base in the baselist, and we add each result on a list.
+                    # count_base(base) counts each base:
 
                     for base in baselist:
                         count = s.count_base(base)
@@ -678,9 +730,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>{baselist[2]}: {countlist[2]} {perclist[2]}</p>
                                 <p>{baselist[3]}: {countlist[3]} {perclist[3]}</p>"""
 
+                    # The gene given by the user is correct:
                     if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<h1> {gene_name}: </h1><p>{result}</p>"""
 
+                    # The gene does not exist, is incorrect or is not available in ensembl:
                     elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
@@ -694,6 +748,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
+                    # The user entered a blank space:
                     elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
@@ -710,6 +765,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                                 <p>ERROR INVALID VALUE</p>
                                                 <a href="/">Main page</a></body></html>"""
 
+            # geneList: Return the names of the genes located in a chromosome from the start to end positions.
             elif action == "/geneList":
                 contents = f"""<!DOCTYPE html>
                                 <html lang = "en">
@@ -723,14 +779,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                 get_value = arguments[1]
 
+                # First we split get_value:
                 get_chromo = get_value.split('&')[0]
                 get_start = get_value.split('&')[1]
                 get_end = get_value.split('&')[2]
 
+                # Then we obtain the values entered by the user:
                 chromo = get_chromo.split("=")[1]
                 start = get_start.split("=")[1]
                 end = get_end.split("=")[1]
 
+                # This endpoint give us all the genes in that chromo, between start and end (human).
                 endpoint = f"overlap/region/human/{chromo}:{start}-{end}"
                 parameters = '?feature=gene;content-type=application/json'
 
@@ -755,6 +814,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                     # -- Read the response's body:
                     body = response.read().decode("utf-8")
+                    
+                    # -- This is a list of dictionaries, and each dictionary is a gene. Each gene
                     body = json.loads(body)
 
                     if f"{response.status} {response.reason}" == "200 OK":
