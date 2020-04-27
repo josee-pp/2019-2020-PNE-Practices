@@ -207,8 +207,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                         if k == "karyotype":
 
-                            # v is the list of chromosomes
-
                             if str(v) == "[]":
                                 contents = f"""<p> The karyotype of this species is not available. </p>"""
 
