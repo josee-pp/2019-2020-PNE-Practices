@@ -339,6 +339,217 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>ERROR INVALID VALUE</p>
                                 <a href="/">Main page</a></body></html>"""
 
+
+            elif "/geneSeq" in action:
+                contents = f"""<!DOCTYPE html>
+                                <html lang = "en">
+                                <head>
+                                <meta charset = "utf-8">
+                                <title> Gene sequence </title >
+                                </head >
+                                <body>
+                                """
+
+                get_value = arguments[1]
+                gene_action = get_value.split("=")[0]
+                gene_name = get_value.split("=")[1]
+
+                endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
+
+                try:
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint1 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response1 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response1.status} {response1.reason}\n")
+
+                    # -- Read the response's body:
+                    body1 = response1.read().decode("utf-8")
+                    body1 = json.loads(body1)
+                    dct = body1[0]
+                    stable_id = dct["id"]
+
+                    endpoint2 = f"sequence/id/{stable_id}"
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint2 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response2 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response2.status} {response2.reason}\n")
+
+                    # -- Read the response's body:
+                    body2 = response2.read().decode("utf-8")
+                    body2 = json.loads(body2)
+                    seq = body2["seq"]
+
+                    if gene_action == "gene":
+                        contents += f"""<p> The sequence of {gene_name} is: {seq} </p>"""
+
+                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                        contents = f"""<!DOCTYPE html>
+                                        <html lang="en" dir="ltr">
+                                        <head>
+                                        <meta charset="utf-8">
+                                        <title>Error</title>
+                                        </head>
+                                        <body>
+                                        <h1>Error</h1>
+                                        <p>Resource not available</p>
+                                        <p> Invalid gene game. Please, try again. </p>
+                                        """
+
+                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                        contents = Path('Error.html').read_text()
+
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
+
+                except ValueError:
+                    contents = f"""<!DOCTYPE html>
+                                <html lang = "en">
+                                <head>
+                                 <meta charset = "utf-8" >
+                                 <title>ERROR</title >
+                                </head>
+                                <body>
+                                <p>ERROR INVALID VALUE</p>
+                                <a href="/">Main page</a></body></html>"""
+
+            elif "/geneInfo" in action:
+
+                contents = f"""<!DOCTYPE html>
+                                <html lang = "en">
+                                <head>
+                                <meta charset = "utf-8">
+                                <title> Gene info </title >
+                                </head >
+                                <body>
+                                """
+
+                get_value = arguments[1]
+                gene_action = get_value.split("=")[0]
+                gene_name = get_value.split("=")[1]
+
+                endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
+
+                try:
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint1 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response1 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response1.status} {response1.reason}\n")
+
+                    # -- Read the response's body:
+                    body1 = response1.read().decode("utf-8")
+                    body1 = json.loads(body1)
+                    dct = body1[0]
+                    stable_id = dct["id"]
+
+                    endpoint2 = f"lookup/id/{stable_id}"
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint2 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response2 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response2.status} {response2.reason}\n")
+
+                    # -- Read the response's body:
+                    body2 = response2.read().decode("utf-8")
+                    body2 = json.loads(body2)
+
+                    start = body2["start"]
+                    end = body2["end"]
+
+                    length = int(end) - int(start)
+                    length = str(length)
+
+                    id = body2["id"]
+                    chromose = body2["seq_region_name"]
+
+                    if gene_action == "gene":
+                        contents += f"""<h1> {gene_name}: </h1>
+                                    <p>Start: {start}</p>
+                                    <p>End: {end}</p>
+                                    <p>Length: {length}</p>
+                                    <p>Stable ID: {id}</p>
+                                    <p>Chromose: {chromose}</p>
+                                    """
+
+                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                        contents = f"""<!DOCTYPE html>
+                                        <html lang="en" dir="ltr">
+                                        <head>
+                                        <meta charset="utf-8">
+                                        <title>Error</title>
+                                        </head>
+                                        <body>
+                                        <h1>Error</h1>
+                                        <p>Resource not available</p>
+                                        <p> Invalid gene game. Please, try again. </p>
+                                        """
+
+                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                        contents = Path('Error.html').read_text()
+
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
+
+                except ValueError:
+                    contents = f"""<!DOCTYPE html>
+                                <html lang = "en">
+                                <head>
+                                 <meta charset = "utf-8" >
+                                 <title>ERROR</title >
+                                </head>
+                                <body>
+                                <p>ERROR INVALID VALUE</p>
+                                <a href="/">Main page</a></body></html>"""
+
+
         except (KeyError, ValueError, IndexError, TypeError):
             contents = Path('Error.html').read_text()
 
