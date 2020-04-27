@@ -815,13 +815,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     # -- Read the response's body:
                     body = response.read().decode("utf-8")
                     
-                    # -- This is a list of dictionaries, and each dictionary is a gene. Each gene
+                    # -- This is a list of dictionaries, and each dictionary is a gene. Each dictionary has a key called
+                    # -- "external_name", which is the gene name we want to obtain:
+
                     body = json.loads(body)
 
+                    # The data entered by the user is correct:
                     if f"{response.status} {response.reason}" == "200 OK":
                         for gene in body:
                             contents += f"""<p> - {gene["external_name"]} </p>"""
 
+                    # The data is incorrect or does not match which the available data in ensembl:
                     elif f"{response.status} {response.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
@@ -836,6 +840,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         or the chromosome is invalid. Please, try again. </p>
                                         """
 
+                    # The user entered blank spaces:
                     elif f"{response.status} {response.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
