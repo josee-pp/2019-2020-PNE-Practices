@@ -549,9 +549,131 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>ERROR INVALID VALUE</p>
                                 <a href="/">Main page</a></body></html>"""
 
+            elif "/geneCalc" in action:
+
+                contents = f"""<!DOCTYPE html>
+                                <html lang = "en">
+                                <head>
+                                <meta charset = "utf-8">
+                                <title> Gene calc </title >
+                                </head >
+                                <body>
+                                """
+
+                get_value = arguments[1]
+                gene_action = get_value.split("=")[0]
+                gene_name = get_value.split("=")[1]
+
+                endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
+
+                try:
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint1 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response1 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response1.status} {response1.reason}\n")
+
+                    # -- Read the response's body:
+                    body1 = response1.read().decode("utf-8")
+                    body1 = json.loads(body1)
+                    dct = body1[0]
+                    stable_id = dct["id"]
+
+                    endpoint2 = f"sequence/id/{stable_id}"
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint2 + PARAMS)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response2 = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response2.status} {response2.reason}\n")
+
+                    # -- Read the response's body:
+                    body2 = response2.read().decode("utf-8")
+                    body2 = json.loads(body2)
+                    seq = body2["seq"]
+
+                    s = Seq(seq)
+
+                    length = s.len()
+
+                    baselist = ["A", "C", "G", "T"]
+                    countlist = []
+                    perclist = []
+
+                    # We perform the operation for each base in the baselist, and we add each result on a list.
+
+                    for base in baselist:
+                        count = s.count_base(base)
+                        countlist.append(count)
+                        percentage = (count / length) * 100
+                        perclist.append(f"({round(percentage, 2)} %)")
+                    result = f"""
+                                <p>Total length: {length}</p>
+                                <p>{baselist[0]}: {countlist[0]} {perclist[0]}</p>
+                                <p>{baselist[1]}: {countlist[1]} {perclist[1]}</p>
+                                <p>{baselist[2]}: {countlist[2]} {perclist[2]}</p>
+                                <p>{baselist[3]}: {countlist[3]} {perclist[3]}</p>"""
+
+                    if gene_action == "gene":
+                        contents += f"""<h1> {gene_name}: </h1><p>{result}</p>"""
+
+                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                        contents = f"""<!DOCTYPE html>
+                                        <html lang="en" dir="ltr">
+                                        <head>
+                                        <meta charset="utf-8">
+                                        <title>Error</title>
+                                        </head>
+                                        <body>
+                                        <h1>Error</h1>
+                                        <p>Resource not available</p>
+                                        <p> Invalid gene game. Please, try again. </p>
+                                        """
+
+                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                        contents = Path('Error.html').read_text()
+
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
+
+                except ValueError:
+                    contents = f"""<!DOCTYPE html>
+                                                <html lang = "en">
+                                                <head>
+                                                 <meta charset = "utf-8" >
+                                                 <title>ERROR</title >
+                                                </head>
+                                                <body>
+                                                <p>ERROR INVALID VALUE</p>
+                                                <a href="/">Main page</a></body></html>"""
+
+
 
         except (KeyError, ValueError, IndexError, TypeError):
             contents = Path('Error.html').read_text()
+            contents += f"""<p><a href="/">Main page </a></body></html>"""
 
         # Generating the response message
         self.send_response(code)  # -- Status line: OK!
