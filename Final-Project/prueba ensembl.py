@@ -85,6 +85,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 body = response.read().decode("utf-8")
                 all_species_dict = json.loads(body)
                 all_species_list = []
+
                 for k, v in all_species_dict.items():
                     if k == "species":
                         for element in v:
@@ -151,8 +152,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             <a href="/">Main page</a></body></html>"""
 
         elif "/karyotype" in action:
-
-            errormsg = {"error": "Can not find internal name for species 'a'"}
 
             contents = f"""<!DOCTYPE html>
                         <html lang = "en">
