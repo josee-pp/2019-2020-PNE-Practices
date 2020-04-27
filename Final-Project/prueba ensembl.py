@@ -5,8 +5,8 @@ from pathlib import Path
 from Seq1 import Seq
 import json
 
-
 null = " "
+
 # Define the Server's port
 PORT = 8080
 
@@ -408,7 +408,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     if gene_action == "gene":
                         contents += f"""<p> The sequence of {gene_name} is: {seq} </p>"""
 
-                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                    elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
                                         <head>
@@ -421,7 +421,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
-                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                    elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
                     contents += f"""<p><a href="/">Main page </a></body></html>"""
@@ -520,7 +520,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     <p>Chromose: {chromose}</p>
                                     """
 
-                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                    elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
                                         <head>
@@ -533,7 +533,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
-                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                    elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
                     contents += f"""<p><a href="/">Main page </a></body></html>"""
@@ -640,7 +640,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     if gene_action == "gene":
                         contents += f"""<h1> {gene_name}: </h1><p>{result}</p>"""
 
-                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                    elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
                         contents = f"""<!DOCTYPE html>
                                         <html lang="en" dir="ltr">
                                         <head>
@@ -653,7 +653,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         <p> Invalid gene game. Please, try again. </p>
                                         """
 
-                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                    elif f"{response1.status} {response1.reason}" == "404 Not Found" or f"{response2.status} {response2.reason}" == "404 Not Found":
                         contents = Path('Error.html').read_text()
 
                     contents += f"""<p><a href="/">Main page </a></body></html>"""
@@ -669,7 +669,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                                 <p>ERROR INVALID VALUE</p>
                                                 <a href="/">Main page</a></body></html>"""
 
-
+            elif action == "/geneList":
+                contents = f"""<!DOCTYPE html>
+                              <html lang = "en">            
+                              <head>  
+                              <meta charset = "utf-8"
+                              <title> Gene List</title>
+                              </head>"""
+                endpoint = "overlap/region/human/"
+                get_value = arguments[1]
+                print(get_value)
 
         except (KeyError, ValueError, IndexError, TypeError):
             contents = Path('Error.html').read_text()
