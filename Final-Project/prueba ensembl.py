@@ -4,7 +4,6 @@ import termcolor
 from pathlib import Path
 from Seq1 import Seq
 import json
-import itertools
 
 null = " "
 # Define the Server's port
