@@ -351,7 +351,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
-                gene_action = get_value.split("=")[0]
                 gene_name = get_value.split("=")[1]
 
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
@@ -405,7 +404,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     body2 = json.loads(body2)
                     seq = body2["seq"]
 
-                    if gene_action == "gene":
+                    if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<p> The sequence of {gene_name} is: {seq} </p>"""
 
                     elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
@@ -449,7 +448,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
-                gene_action = get_value.split("=")[0]
                 gene_name = get_value.split("=")[1]
 
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
@@ -511,7 +509,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     id = body2["id"]
                     chromose = body2["seq_region_name"]
 
-                    if gene_action == "gene":
+                    if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<h1> {gene_name}: </h1>
                                     <p>Start: {start}</p>
                                     <p>End: {end}</p>
@@ -561,7 +559,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 """
 
                 get_value = arguments[1]
-                gene_action = get_value.split("=")[0]
                 gene_name = get_value.split("=")[1]
 
                 endpoint1 = f"/xrefs/symbol/homo_sapiens/{gene_name}"
@@ -637,7 +634,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <p>{baselist[2]}: {countlist[2]} {perclist[2]}</p>
                                 <p>{baselist[3]}: {countlist[3]} {perclist[3]}</p>"""
 
-                    if gene_action == "gene":
+                    if f"{response1.status} {response1.reason}" == "200 OK" or f"{response2.status} {response2.reason}" == "200 OK":
                         contents += f"""<h1> {gene_name}: </h1><p>{result}</p>"""
 
                     elif f"{response1.status} {response1.reason}" == "400 Bad Request" or f"{response2.status} {response2.reason}" == "400 Bad Request":
@@ -671,14 +668,71 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
             elif action == "/geneList":
                 contents = f"""<!DOCTYPE html>
-                              <html lang = "en">            
-                              <head>  
-                              <meta charset = "utf-8"
-                              <title> Gene List</title>
-                              </head>"""
-                endpoint = "overlap/region/human/"
+                                <html lang = "en">
+                                <head>
+                                <meta charset = "utf-8">
+                                <title> Gene list </title >
+                                </head >
+                                <body>
+                                <h1> List of genes: </h1>
+                                """
+
                 get_value = arguments[1]
-                print(get_value)
+
+                get_chromo = get_value.split('&')[0]
+                get_start = get_value.split('&')[1]
+                get_end = get_value.split('&')[2]
+
+                chromo_action = get_chromo.split("=")[0]
+                chromo = get_chromo.split("=")[1]
+                start = get_start.split("=")[1]
+                end = get_end.split("=")[1]
+
+                endpoint = f"overlap/region/human/{chromo}:{start}-{end}"
+                parameters = '?feature=gene;content-type=application/json'
+
+                try:
+
+                    # Connect with the server
+                    conn = http.client.HTTPConnection(SERVER)
+
+                    # -- Send the request message, using the GET method. We are
+                    # -- requesting the main page (/)
+                    try:
+                        conn.request("GET", endpoint + parameters)
+                    except ConnectionRefusedError:
+                        print("ERROR! Cannot connect to the Server")
+                        exit()
+
+                    # -- Read the response message from the server
+                    response = conn.getresponse()
+
+                    # -- Print the status line
+                    print(f"Response received!: {response.status} {response.reason}\n")
+
+                    # -- Read the response's body:
+                    body = response.read().decode("utf-8")
+                    body = json.loads(body)
+
+                    if f"{response.status} {response.reason}" == "200 OK":
+                        for gene in body:
+                            contents += f"""<p> - {gene["external_name"]} </p>"""
+
+                    # body is a list of dictionaries. Each dictionary is a gene.
+
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
+
+                except ValueError:
+                    contents = f"""<!DOCTYPE html>
+                                    <html lang = "en">
+                                    <head>
+                                    <meta charset = "utf-8" >
+                                    <title>ERROR</title >
+                                    </head>
+                                    <body>
+                                    <p>ERROR INVALID VALUE</p>
+                                    <a href="/">Main page</a></body></html>"""
+
 
         except (KeyError, ValueError, IndexError, TypeError):
             contents = Path('Error.html').read_text()
