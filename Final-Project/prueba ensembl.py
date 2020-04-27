@@ -62,11 +62,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             limit = arguments[1]
 
             ENDPOINT = "info/species"
-            URL = SERVER + ENDPOINT + PARAMS
-
-            print()
-            print(f"Server: {SERVER}")
-            print(f"URL: {URL}")
 
             try:
 
@@ -98,7 +93,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 if k1 == "display_name":
                                     species = v1
                                     all_species_list.append(species)
-                # all_species = "\n".join(all_species_list)
 
                 contents = f"""
                             <!DOCTYPE html>
@@ -108,7 +102,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <title>List of species</title >
                             </head >
                             <body>
-                            <h1>All species: Total number: {len(all_species_list)}</h1>
+                            <p>The total number of species in ensembl is: {len(all_species_list)}</p>
                             """
 
                 limit_action = limit.split("=")[0]
@@ -157,12 +151,86 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             <p>ERROR INVALID VALUE. Introduce an integer value for limit</p>
                             <a href="/">Main page</a></body></html>"""
 
+        elif "/karyotype" in action:
+
+            errormsg = {"error": "Can not find internal name for species 'a'"}
+
+            contents = f"""<!DOCTYPE html>
+                        <html lang = "en">
+                        <head>
+                            <meta charset = "utf-8">
+                             <title> Karyotype </title >
+                        </head >
+                        <body>
+                        """
+
+            get_value = arguments[1]
+            species_action = get_value.split("=")[0]
+            species_name = get_value.split("=")[1]
+
+            ENDPOINT = f"info/assembly/{species_name}"
+
+            try:
+
+                # Connect with the server
+                conn = http.client.HTTPConnection(SERVER)
+
+                # -- Send the request message, using the GET method. We are
+                # -- requesting the main page (/)
+                try:
+                    conn.request("GET", ENDPOINT + PARAMS)
+                except ConnectionRefusedError:
+                    print("ERROR! Cannot connect to the Server")
+                    exit()
+
+                # -- Read the response message from the server
+                response = conn.getresponse()
+
+                # -- Print the status line
+                print(f"Response received!: {response.status} {response.reason}\n")
+
+                # -- Read the response's body:
+                body = response.read().decode("utf-8")
+                body = json.loads(body)
+                print(body)
+
+
+                for k, v in body.items():
+                    if k == "karyotype":
+                        print(v)
+                        karyotype = "\n".join(v)
+                        if str(v) == "[]":
+                            contents = f"""<p> The karyotype of this species is not available. </p>"""
+                        #elif v == errormsg:
+                         #   contents = f"""<p> This species is not available in ensembl or does not exist. </p>"""
+                        else:
+                            if species_action == "species":
+                                contents += f"""<p> The names of the chromosomes are:</p> <p> - {karyotype} </p>"""
+                            else:
+                                contents = Path('Error.html').read_text()
+
+                contents += f"""<a href="/">Main page </a></body></html>"""
+
+
+            except ValueError:
+                contents = f"""<!DOCTYPE html>
+                            <html lang = "en">
+                            <head>
+                             <meta charset = "utf-8" >
+                             <title>ERROR</title >
+                            </head>
+                            <body>
+                            <p>ERROR INVALID VALUE. Introduce an integer value for limit</p>
+                            <a href="/">Main page</a></body></html>"""
+
+
+
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html')
-        self.send_header('Content-Length', str.encode(contents))
+        self.send_header('Content-Length', len(str.encode(contents)))
 
         # The header is finished
         self.end_headers()
