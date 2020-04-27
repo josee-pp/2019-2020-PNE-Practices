@@ -167,6 +167,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             get_value = arguments[1]
             species_action = get_value.split("=")[0]
             species_name = get_value.split("=")[1]
+            print(species_name)
 
             ENDPOINT = f"info/assembly/{species_name}"
 
@@ -196,18 +197,25 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
 
                 for k, v in body.items():
+
                     if k == "karyotype":
                         print(v)
                         karyotype = "\n".join(v)
+
                         if str(v) == "[]":
                             contents = f"""<p> The karyotype of this species is not available. </p>"""
-                        #elif v == errormsg:
-                         #   contents = f"""<p> This species is not available in ensembl or does not exist. </p>"""
+
                         else:
                             if species_action == "species":
                                 contents += f"""<p> The names of the chromosomes are:</p> <p> - {karyotype} </p>"""
                             else:
                                 contents = Path('Error.html').read_text()
+
+                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                        contents = f"""<p> This species is not available in ensembl or does not exist. </p>"""
+
+                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                        contents = Path('main-page.html').read_text()
 
                 contents += f"""<a href="/">Main page </a></body></html>"""
 
