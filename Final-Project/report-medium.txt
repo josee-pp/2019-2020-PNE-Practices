@@ -1,0 +1,330 @@
+Test report - Basic level:
+==========================
+
+---> geneSeq endpoint
+
+* TEST 1: Invalid gene
+
+* Input:
+
+http://localhost:8080/geneSeq?gene=aaaaa
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Blank space entered.
+
+* Input:
+
+http://localhost:8080/geneSeq?gene=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3:
+
+* Input:
+
+http://localhost:8080/geneSeq?gene=FRAT1
+
+* output:
+
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Gene sequence </title >
+</head >
+<body>
+<p> The sequence of FRAT1 is: CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTC
+AGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAG
+AGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGC
+GAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTC
+CCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCT
+ACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCG
+TGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGT
+GCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAAC
+CCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCAC
+AGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAA
+AATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGAC
+TCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCC
+GGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACT
+TAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCT
+CTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTA
+AAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTG
+TTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTC
+CGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGA
+GACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCC
+CTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGC
+TTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACC
+GGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAA
+AAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC</p>
+<p><a href="/">Main page </a></body></html>
+
+________________________________________________________________________________________________________________________
+========================================================================================================================
+
+---> geneInfo endpoint
+
+* TEST 1: Invalid gene.
+
+* Input:
+
+http://localhost:8080/geneInfo?gene=aaaaaa
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Blank space.
+
+* Input:
+
+http://localhost:8080/geneInfo?gene=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3:
+
+* Input:
+
+http://localhost:8080/geneInfo?gene=FRAT1
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Gene info </title >
+</head >
+<body>
+<h1> FRAT1: </h1>
+<p>Start: 97319271</p>
+<p>End: 97321915</p>
+<p>Length: 2644</p>
+<p>Stable ID: ENSG00000165879</p>
+<p>Chromose: 10</p>
+<p><a href="/">Main page </a></body></html>
+
+________________________________________________________________________________________________________________________
+========================================================================================================================
+
+---> geneCalc endpoint
+
+* TEST 1: Invalid gene.
+
+* Input:
+
+http://localhost:8080/geneCalc?gene=aaaaaa
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Blank space.
+
+* Input:
+
+http://localhost:8080/geneCalc?gene=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3:
+
+* Input:
+
+http://localhost:8080/geneCalc?gene=FRAT1
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Gene calc </title >
+</head >
+<body>
+<h1> FRAT1: </h1><p>
+<p>Total length: 2645</p>
+<p>A: 477 (18.03 %)</p>
+<p>C: 799 (30.21 %)</p>
+<p>G: 849 (32.1 %)</p>
+<p>T: 520 (19.66 %)</p></p><p><a href="/">Main page </a></body></html>
+
+________________________________________________________________________________________________________________________
+========================================================================================================================
+
+---> geneList endpoint
+
+* TEST 1: All invalid inputs.
+
+* Input:
+
+http://localhost:8080/geneList?chromo=aaaaaaaaaaaa&start=fffffffff&end=gggggggggg
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist,
+or the chromosome is invalid. Please, try again. </p>
+<p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: All blank spaces.
+
+* Input:
+
+http://localhost:8080/geneList?chromo=&start=&end=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist,
+or the chromosome is invalid. Please, try again. </p>
+<p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3: At least 1 blank space.
+
+* Input:
+
+http://localhost:8080/geneList?chromo=a&start=&end=2
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist,
+or the chromosome is invalid. Please, try again. </p>
+<p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 4:
+
+* Input:
+
+http://localhost:8080/geneList?chromo=1&start=0&end=30000
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Gene list </title >
+</head >
+<body>
+<h1> List of genes: </h1>
+<p> - DDX11L1 </p><p> - WASH7P </p><p> - MIR6859-1 </p><p> - MIR1302-2HG </p><p><a href="/">Main page </a></body></html>
