@@ -683,7 +683,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 get_start = get_value.split('&')[1]
                 get_end = get_value.split('&')[2]
 
-                chromo_action = get_chromo.split("=")[0]
                 chromo = get_chromo.split("=")[1]
                 start = get_start.split("=")[1]
                 end = get_end.split("=")[1]
@@ -718,7 +717,22 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         for gene in body:
                             contents += f"""<p> - {gene["external_name"]} </p>"""
 
-                    # body is a list of dictionaries. Each dictionary is a gene.
+                    elif f"{response.status} {response.reason}" == "400 Bad Request":
+                        contents = f"""<!DOCTYPE html>
+                                        <html lang="en" dir="ltr">
+                                        <head>
+                                        <meta charset="utf-8">
+                                        <title>Error</title>
+                                        </head>
+                                        <body>
+                                        <h1>Error</h1>
+                                        <p>Resource not available</p>
+                                        <p> This species is not available in ensembl or does not exist, 
+                                        or the chromosome is invalid. Please, try again. </p>
+                                        """
+
+                    elif f"{response.status} {response.reason}" == "404 Not Found":
+                        contents = Path('Error.html').read_text()
 
                     contents += f"""<p><a href="/">Main page </a></body></html>"""
 
