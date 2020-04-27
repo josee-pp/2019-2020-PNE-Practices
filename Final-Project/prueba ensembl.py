@@ -122,14 +122,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             contents += f"""<p>The number of species you selected are: {limit_value} </p>"""
                             if int(limit_value) > len(all_species_list) or int(limit_value) == 0 or int(limit_value) < 0:
                                 contents = f"""<!DOCTYPE html>
-                                                        <html lang = "en">
-                                                    <head>
-                                                        <meta charset = "utf-8" >
-                                                        <title>ERROR</title >
-                                                    </head>
-                                                    <body>
-                                                    <p>The limit you have introduced is out of range. Please, introduce a valid limit value</p>
-                                                    <a href="/">Main page</a></body></html>"""
+                                                <html lang = "en">
+                                                <head>
+                                                    <meta charset = "utf-8" >
+                                                    <title>ERROR</title >
+                                                </head>
+                                                <body>
+                                                <p>The limit you have introduced is out of range. Please, introduce a valid limit value</p>
+                                                <a href="/">Main page</a></body></html>"""
                             else:
                                 limit_species_list = all_species_list[:(int(limit_value))]
                                 contents += f"""<p>The species are: </p>"""
@@ -208,7 +208,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         if k == "karyotype":
 
                             if str(v) == "[]":
-                                contents = f"""<p> The karyotype of this species is not available. </p>"""
+                                contents = f"""<!DOCTYPE html>
+                                            <html lang="en" dir="ltr">
+                                            <head>
+                                            <meta charset="utf-8">
+                                            <title>Error</title>
+                                            </head>
+                                            <body>
+                                            <h1>Error</h1>
+                                            <p>Resource not available</p>
+                                            <p> The karyotype of this species is not available. </p>
+                                            </p>"""
 
                             else:
                                 if species_action == "species":
@@ -219,12 +229,22 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     contents = Path('Error.html').read_text()
 
                         elif f"{response.status} {response.reason}" == "400 Bad Request":
-                            contents = f"""<p> This species is not available in ensembl or does not exist. </p>"""
+                            contents = f"""<!DOCTYPE html>
+                                            <html lang="en" dir="ltr">
+                                            <head>
+                                            <meta charset="utf-8">
+                                            <title>Error</title>
+                                            </head>
+                                            <body>
+                                            <h1>Error</h1>
+                                            <p>Resource not available</p>
+                                            <p> This species is not available in ensembl or does not exist. 
+                                            """
 
                         elif f"{response.status} {response.reason}" == "404 Not Found":
-                            contents = Path('main-page.html').read_text()
+                            contents = Path('Error.html').read_text()
 
-                    contents += f"""<a href="/">Main page </a></body></html>"""
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
 
 
                 except ValueError:
@@ -244,7 +264,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                 <html lang = "en">
                                 <head>
                                 <meta charset = "utf-8">
-                                <title> Karyotype </title >
+                                <title> Chromosome Length </title >
                                 </head >
                                 <body>
                                 """
@@ -290,12 +310,23 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             contents += f"""<p> The length of the chromosome is: {length} </p>"""
 
                         elif f"{response.status} {response.reason}" == "400 Bad Request":
-                            contents = f"""<p> This species is not available in ensembl or does not exist, or the chromosome is invalid. Please, try again. </p>"""
+                            contents = f"""<!DOCTYPE html>
+                                            <html lang="en" dir="ltr">
+                                            <head>
+                                            <meta charset="utf-8">
+                                            <title>Error</title>
+                                            </head>
+                                            <body>
+                                            <h1>Error</h1>
+                                            <p>Resource not available</p>
+                                            <p> This species is not available in ensembl or does not exist, 
+                                            or the chromosome is invalid. Please, try again. </p>
+                                            """
 
                         elif f"{response.status} {response.reason}" == "404 Not Found":
-                            contents = Path('main-page.html').read_text()
+                            contents = Path('Error.html').read_text()
 
-                    contents += f"""<a href="/">Main page </a></body></html>"""
+                    contents += f"""<p><a href="/">Main page </a></body></html>"""
 
                 except ValueError:
                     contents = f"""<!DOCTYPE html>

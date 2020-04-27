@@ -1,0 +1,360 @@
+Test report - Basic level:
+==========================
+
+---> listSpecies endpoint
+
+* TEST 1: Limit = 5
+
+* Input:
+
+http://localhost:8080/listSpecies?limit=5
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8" >
+   <title>List of species</title >
+</head >
+<body>
+<p>The total number of species in ensembl is: 267</p>
+<p>The number of species you selected are: 5 </p><p>The species are: </p><p> - Sailfin molly
+</p><p> - Japanese medaka HSOK </p><p> - Black snub-nosed monkey </p><p> - Golden Hamster
+</p><p> - Periophthalmus magnuspinnatus </p><a href="/">Main page</a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Limit = a --> Error test.
+
+* Input:
+
+http://localhost:8080/listSpecies?limit=a
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8" >
+    <title>ERROR</title >
+</head>
+<body>
+<p>ERROR INVALID VALUE. Introduce an integer value for limit</p>
+<a href="/">Main page</a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3: Limit = 0 ---> All species.
+
+* Input:
+
+http://localhost:8080/listSpecies?limit=
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8" >
+   <title>List of species</title >
+</head >
+<body>
+<p>The total number of species in ensembl is: 267</p>
+<p>The number of species you selected is null, so all the species are displayed.
+</p><p>The species are: </p><p> - Sailfin molly </p>
+<p> - Japanese medaka HSOK </p><p> - Black snub-nosed monkey </p><p> - Golden Hamster
+</p><p> - Periophthalmus magnuspinnatus </p><p> - Western mosquitofish </p><p> - Eastern happy
+</p><p> - Golden snub-nosed monkey </p><p> - Great spotted kiwi </p><p> - Donkey </p><p> - Hedgehog
+</p><p> - Amazon molly </p><p> - Pig - Meishan </p><p> - Abingdon island giant tortoise
+</p><p> - Drosophila melanogaster </p><p> - Mouse DBA/2J </p><p> - Panda </p><p> - Marmoset </p><p> - Pika
+</p><p> - Mouse WSB/EiJ </p><p> - Common carp huanghe </p><p> - Spoon-billed sandpiper </p><p> - Pig
+</p><p> - Tiger tail seahorse </p><p> - Tuatara </p><p> - Capuchin </p><p> - Pig - Hampshire </p><p> - Pig - Rongchang
+</p><p> - Horse </p><p> - Long-tailed chinchilla </p><p> - Mangrove rivulus </p><p> - Ballan wrasse
+</p><p> - Golden-collared manakin </p><p> - Pink-footed goose </p><p> - Blue tit </p><p> - Greater amberjack
+</p><p> - C.savignyi </p><p> - Naked mole-rat male </p><p> - Midas cichlid </p><p> - Agassiz's desert tortoise
+</p><p> - Mouse A/J </p><p> - Ryukyu mouse </p><p> - Clown anemonefish </p><p> - Reedfish
+</p><p> - Makobe Island cichlid </p><p> - Sheep </p><p> - Platyfish </p><p> - American mink </p><p> - Painted turtle
+</p><p> - Orange clownfish </p><p> - Chinese hamster CHOK1GS </p><p> - Mouse CBA/J </p><p> - Zebra finch
+</p><p> - Japanese quail </p><p> - Mummichog </p><p> - Gouldian finch </p><p> - Bushbaby </p><p> - Dolphin
+</p><p> - Coelacanth </p><p> - Leopard </p><p> - Elephant shark </p><p> - Common wall lizard
+</p><p> - Horned golden-line barbel </p><p> - Rat </p><p> - Spotted gar </p><p> - Lyretail cichlid
+</p><p> - Golden-line barbel </p><p> - Hyrax </p><p> - Pig - Berkshire </p><p> - Spiny chromis </p><p> - Tarsier
+</p><p> - Zebra mbuna </p><p> - Flycatcher </p><p> - Mouse C57BL/6NJ </p><p> - Kakapo </p><p> - Little spotted kiwi
+</p><p> - Mouse PWK/PhJ </p><p> - Channel bull blenny </p><p> - Yellowtail amberjack </p><p> - Sperm whale
+</p><p> - Budgerigar </p><p> - Gibbon </p><p> - Fugu </p><p> - Japanese medaka HdrR </p><p> - Hybrid - Bos Taurus
+</p><p> - Three-toed box turtle </p><p> - Chacoan peccary </p><p> - Bicolor damselfish </p><p> - Barramundi perch
+</p><p> - Cod </p><p> - Coquerel's sifaka </p><p> - Ferret </p><p> - Denticle herring </p><p> - Pig - Tibetan
+</p><p> - Chinese hamster CriGri </p><p> - Chicken </p><p> - Tiger </p><p> - Common canary </p><p> - Okarito brown kiwi
+</p><p> - Swamp eel </p><p> - Upper Galilee mountains blind mole rat </p><p> - Bengalese finch
+</p><p> - Ugandan red Colobus </p><p> - Canada lynx </p><p> - Hagfish </p><p> - Crab-eating macaque
+</p><p> - Blue-crowned manakin </p><p> - Emu </p><p> - Komodo dragon </p><p> - Pig-tailed macaque
+</p><p> - Pig - Pietrain </p><p> - Tree Shrew </p><p> - Squirrel </p><p> - Shrew </p><p> - Tasmanian devil
+</p><p> - Tropical clawed frog </p><p> - Ocean sunfish </p><p> - Mouse NOD/ShiLtJ </p><p> - Sloth
+</p><p> - Australian saltwater crocodile </p><p> - Channel catfish </p><p> - Koala </p><p> - Gelada
+</p><p> - Indian medaka </p><p> - Caenorhabditis elegans </p><p> - Goat </p><p> - Northern pike
+</p><p> - Indian glassy fish </p><p> - Elephant </p><p> - Sheepshead minnow </p><p> - Common wombat </p><p> - Cow
+</p><p> - Mouse CAST/EiJ </p><p> - Electric eel </p><p> - Mouse BALB/cJ </p><p> - Prairie vole
+</p><p> - Daurian ground squirrel </p><p> - Mouse 129S1/SvImJ </p><p> - Mainland tiger snake
+</p><p> - Common carp hebao red </p><p> - Angola colobus </p><p> - American bison </p><p> - Meerkat
+</p><p> - Asian bonytongue </p><p> - Nile tilapia </p><p> - Eurasian sparrowhawk </p><p> - Yellow-billed parrot
+</p><p> - Lesser hedgehog tenrec </p><p> - Alpaca </p><p> - Algerian mouse </p><p> - Mouse C3H/HeJ </p><p> - Human
+</p><p> - Mouse </p><p> - Argentine black and white tegu </p><p> - Orbiculate cardinalfish
+</p><p> - Chinese softshell turtle </p><p> - Dog </p><p> - Zebrafish </p><p> - Dog - Basenji
+</p><p> - Siamese fighting fish </p><p> - Cat </p><p> - Blunt-snouted clingfish </p><p> - Jewelled blenny
+</p><p> - Ruff </p><p> - Pig USMARC </p><p> - Atlantic salmon </p><p> - Orangutan </p><p> - Degu
+</p><p> - Gilthead seabream </p><p> - Alpine marmot </p><p> - Blind barbel </p><p> - Eastern brown snake
+</p><p> - Huchen </p><p> - Round goby </p><p> - Chinese hamster PICR </p><p> - Red fox </p><p> - Dingo
+</p><p> - Brazilian guinea pig </p><p> - Pig - Jinhua </p><p> - Microbat </p><p> - Ma's night monkey
+</p><p> - Rabbit </p><p> - Monterrey platyfish </p><p> - Macaque </p><p> - Turkey </p><p> - Guinea Pig
+</p><p> - Swan goose </p><p> - Greater bamboo lemur </p><p> - Polar bear </p><p> - Duck </p><p> - Gorilla
+</p><p> - Naked mole-rat female </p><p> - Vervet-AGM </p><p> - Mouse LP/J </p><p> - Tongue sole
+</p><p> - Bolivian squirrel monkey </p><p> - Opossum </p><p> - Japanese medaka HNI </p><p> - C.intestinalis
+</p><p> - Mongolian gerbil </p><p> - Chimpanzee </p><p> - Burton's mouthbrooder </p><p> - Indian peafowl
+</p><p> - Red-bellied piranha </p><p> - Pig - Wuzhishan </p><p> - Lesser Egyptian jerboa </p><p> - Shrew mouse
+</p><p> - Lamprey </p><p> - Greater horseshoe bat </p><p> - Olive baboon </p><p> - Armadillo </p><p> - Dog - Great Dane
+</p><p> - Arabian camel </p><p> - Pig - Largewhite </p><p> - Dark-eyed junco </p><p> - River trout </p><p> - Guppy
+</p><p> - Large yellow croaker </p><p> - Mouse AKR/J </p><p> - Chilean tinamou </p><p> - Mouse NZO/HlLtJ
+</p><p> - Mouse Lemur </p><p> - Mouse FVB/NJ </p><p> - Great Tit </p><p> - Saccharomyces cerevisiae
+</p><p> - Blue tilapia </p><p> - Wallaby </p><p> - Golden eagle </p><p> - Siberian musk deer </p><p> - Drill
+</p><p> - Bonobo </p><p> - Pig - Landrace </p><p> - Central bearded dragon </p><p> - Pachon cavefish
+</p><p> - Paramormyrops kingsleyae </p><p> - Kangaroo rat </p><p> - Helmeted guineafowl </p><p> - Wild yak
+</p><p> - Climbing perch </p><p> - Tetraodon </p><p> - Hybrid - Bos Indicus </p><p> - Megabat
+</p><p> - Pinecone soldierfish </p><p> - Pig - Bamei </p><p> - Ring-necked pheasant </p><p> - Golden pheasant
+</p><p> - Platypus </p><p> - Mexican tetra </p><p> - Arctic ground squirrel </p><p> - African ostrich
+</p><p> - Damara mole rat </p><p> - Common carp german mirror </p><p> - American black bear </p><p> - Turbot
+</p><p> - Anole lizard </p><p> - Zig-zag eel </p><p> - Stickleback </p><p> - Burrowing owl
+</p><p> - Northern American deer mouse </p><p> - White-throated sparrow </p><p> - American beaver </p><p> - Domestic yak
+</p><p> - Sooty mangabey </p><p> - Steppe mouse </p><p> - Shortfin molly </p><p> - Live sharksucker
+</p><p> - Atlantic herring </p><a href="/">Main page</a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 4: ERROR.html test.
+
+* Input:
+
+http://localhost:8080/listSpeaaaes?limit=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+<a href="http://127.0.0.1:8080/">Main Page </a>
+</body>
+</html>
+
+________________________________________________________________________________________________________________________
+========================================================================================================================
+
+---> karyotype endpoint
+
+* TEST 1: Error test: The user did not enter anything.
+
+* Input:
+
+http://localhost:8080/karyotype?species=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+<a href="http://127.0.0.1:8080/">Main Page </a>
+</body>
+</html><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Error test: Introducing invalid animal.
+
+* Input:
+
+http://localhost:8080/karyotype?species=a
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist.
+</p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3: Error test: Introducing an integer.
+
+* Input:
+
+http://localhost:8080/karyotype?species=2
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist.
+</p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 4: ERROR.html test
+
+* Input:
+
+http://localhost:8080/karyooooo
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 5:
+
+* Input:
+
+http://localhost:8080/karyotype?species=human
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Karyotype </title >
+</head >
+<body>
+<p> The names of the chromosomes are:</p><p> - 1 </p><p> - 2 </p><p> - 3 </p><p> - 4 </p><p> - 5 </p><p> - 6
+</p><p> - 7 </p><p> - 8 </p><p> - 9 </p><p> - 10 </p><p> - 11 </p><p> - 12 </p><p> - 13 </p><p> - 14 </p><p> - 15
+</p><p> - 16 </p><p> - 17 </p><p> - 18 </p><p> - 19 </p><p> - 20 </p><p> - 21 </p><p> - 22 </p><p> - X </p><p> - Y
+</p><p> - MT </p><p><a href="/">Main page </a></body></html>
+
+________________________________________________________________________________________________________________________
+========================================================================================================================
+
+---> chromosomeLength endpoint
+
+* TEST 1: Error test: The user did not enter anything.
+
+* Input:
+
+http://localhost:8080/chromosomeLength?species=&chromo=
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html><p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 2: Error test: Introducing invalid inputs.
+
+* Input:
+
+http://localhost:8080/chromosomeLength?species=%25&chromo=y
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>Resource not available</p>
+<p> This species is not available in ensembl or does not exist,
+or the chromosome is invalid. Please, try again. </p>
+<p><a href="/">Main page </a></body></html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 3: ERROR.html test
+
+* Input:
+
+http://localhost:8080/chromosomeLengtuuuuu
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body style="background-color: red;">
+<h1>ERROR</h1>
+<p>Resource not available</p>
+<p></p>
+</body>
+</html>
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+* TEST 4:
+
+* Input:
+
+http://localhost:8080/chromosomeLength?species=dog&chromo=3
+
+* output:
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta charset = "utf-8">
+<title> Chromosome Length </title >
+</head >
+<body>
+<p> The length of the chromosome is: 91889043 </p><p><a href="/">Main page </a></body></html>
