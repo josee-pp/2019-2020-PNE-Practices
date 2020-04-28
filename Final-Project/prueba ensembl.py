@@ -770,8 +770,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 contents = f"""<!DOCTYPE html>
                                 <html lang = "en">
                                 <head>
-                                <meta charset = "utf-8">
                                 <title> Gene list </title >
+                                <meta charset = "utf-8">
                                 </head >
                                 <body>
                                 <h1> List of genes: </h1>
