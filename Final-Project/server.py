@@ -315,6 +315,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 # 1.- The name of the species:
                 get_species = get_value.split("&")[0]
                 species_name = get_species.split("=")[1]
+                species_name = species_name.replace("+", "_")
 
                 # 2.- The chromosome:
                 get_region_name = get_value.split("&")[1]
