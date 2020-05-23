@@ -205,6 +205,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
                 # Now we can define the endpoint. This one list the currently available assemblies for a species, along
                 # with toplevel sequences, chromosomes and cytogenetic bands.
+
+                species_name = species_name.replace("+", "_")
+
                 ENDPOINT = f"info/assembly/{species_name}"
 
                 try:
